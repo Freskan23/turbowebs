@@ -16,19 +16,37 @@ const IntroSlide = ({ slide, onStart }) => {
             justifyContent: 'center',
             minHeight: 'calc(100vh - 140px)',
             textAlign: 'center',
-            padding: '2rem'
+            padding: '2rem',
+            overflowY: 'auto'
         }}>
             <img
                 src="/logo.png"
                 alt="TurboWebs 2026"
                 style={{ width: '280px', height: 'auto', marginBottom: '1.5rem' }}
             />
+            <h1 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '0.5rem', color: 'white' }}>
+                {slide.title}
+            </h1>
             <p style={{ fontSize: '1.5rem', color: '#888', marginBottom: '0.5rem' }}>
                 {slide.subtitle}
             </p>
-            <p style={{ fontSize: '1rem', color: '#6366f1', fontWeight: '600', marginBottom: '3rem' }}>
-                {slide.author}
-            </p>
+            {slide.content && (
+                <div style={{
+                    fontSize: '1.1rem',
+                    color: '#999',
+                    maxWidth: '800px',
+                    lineHeight: '1.6',
+                    marginBottom: '2rem',
+                    textAlign: 'left',
+                    background: 'rgba(255,255,255,0.02)',
+                    padding: '2rem',
+                    borderRadius: '1rem',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    whiteSpace: 'pre-wrap'
+                }}>
+                    {slide.content}
+                </div>
+            )}
             <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -60,29 +78,61 @@ const IntroSlide = ({ slide, onStart }) => {
                     </div>
                 ))}
             </div>
-            <button
-                onClick={onStart}
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    padding: '1rem 2.5rem',
-                    fontSize: '1rem',
-                    fontWeight: 'bold',
-                    borderRadius: '9999px',
-                    border: 'none',
-                    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                    color: 'white',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)'
-                }}
-            >
-                Comenzar
-                <ChevronRight size={20} />
-            </button>
-            <div style={{ marginTop: '2rem', color: '#444', fontSize: '0.75rem' }}>
-                o usa las flechas del teclado
-            </div>
+
+            {slide.buttonLink ? (
+                <a
+                    href={slide.buttonLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        padding: '1.2rem 3rem',
+                        fontSize: '1.1rem',
+                        fontWeight: '900',
+                        borderRadius: '9999px',
+                        textDecoration: 'none',
+                        background: 'linear-gradient(135deg, #8b5cf6, #d946ef)',
+                        color: 'white',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 20px rgba(139, 92, 246, 0.4)',
+                        transition: 'transform 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                    {slide.buttonText || 'Comenzar'}
+                    <ChevronRight size={20} />
+                </a>
+            ) : (
+                <button
+                    onClick={onStart}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        padding: '1rem 2.5rem',
+                        fontSize: '1rem',
+                        fontWeight: 'bold',
+                        borderRadius: '9999px',
+                        border: 'none',
+                        background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                        color: 'white',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)'
+                    }}
+                >
+                    {slide.buttonText || 'Comenzar'}
+                    <ChevronRight size={20} />
+                </button>
+            )}
+
+            {!slide.buttonLink && (
+                <div style={{ marginTop: '2rem', color: '#444', fontSize: '0.75rem' }}>
+                    o usa las flechas del teclado
+                </div>
+            )}
         </div>
     );
 };

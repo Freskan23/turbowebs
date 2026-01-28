@@ -255,5 +255,31 @@ export const WEBINAR_SLIDES = [
         templateKey: 'ARCHIVOS_SEO_ESPECIALES',
         icon: '⚙️',
         usesManusReport: true
+    },
+    {
+        id: 10,
+        type: 'intro',
+        category: 'ACADEMIA',
+        categoryColor: '#8b5cf6',
+        title: '¡Apertura Exclusiva: 24 Horas!',
+        subtitle: 'Únete a la YinYang Academy y domina la Parte 2',
+        objective: 'Lleva tu web al siguiente nivel: mantenimiento móvil, automatización de blog y SEO Local extremo.',
+        content: `¡El viaje no termina aquí! Abrimos inscripciones por solo 24 horas en **academy.yinyangseo.com**, la academia Nº1 de SEO Local en español.
+
+**¿QUÉ VEREMOS EN LA PARTE 2?**
+• Gestión y mantenimiento de tu TurboWeb desde el móvil.
+• Configuración avanzada de Schema y optimización técnica profunda.
+• Estrategias de automatización total para tu Blog Local.
+• Soporte directo y comunidad de expertos.
+
+No te quedes fuera del Laboratorio. El Top 1 te está esperando.`,
+        agenda: [
+            { icon: '📱', title: 'Mantenimiento Móvil', desc: 'Gestiona tu negocio sobre la marcha' },
+            { icon: '🤖', title: 'Blog Automático', desc: 'Contenido que rankea sin esfuerzo' },
+            { icon: '🎓', title: 'Comunidad Pro', desc: 'Soporte de Edu Laborda y los Compas' }
+        ],
+        buttonText: 'ACCEDER A LA ACADEMIA 🚀',
+        buttonLink: 'https://academy.yinyangseo.com/',
+        usesManusReport: false
     }
 ];
