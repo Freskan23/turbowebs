@@ -6,6 +6,7 @@ import { useBusiness } from '../context/BusinessContext';
 import { PROMPTS } from '../prompts/templates';
 import { improvePromptWithAI, hasAPIKey } from '../utils/openai';
 import { InfoModal, HelpButton } from './HelpSystem';
+import { SalesTopbar, SalesFooter, TurboWebModal } from './SalesComponents';
 const IntroSlide = ({ slide, onStart }) => {
     return (
         <div style={{
@@ -847,6 +848,7 @@ const PromptSlide = ({ slide }) => {
 export const WebinarPresentation = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [showSettings, setShowSettings] = useState(false);
+    const [isSalesModalOpen, setIsSalesModalOpen] = useState(false);
     const { setUser } = useBusiness();
 
     const slide = WEBINAR_SLIDES[currentSlide];
@@ -884,6 +886,8 @@ export const WebinarPresentation = () => {
             display: 'flex',
             flexDirection: 'column'
         }}>
+            <SalesTopbar onOpenInfo={() => setIsSalesModalOpen(true)} />
+
             {/* Header */}
             <header style={{
                 display: 'flex',
@@ -975,6 +979,8 @@ export const WebinarPresentation = () => {
             )}
 
             <SettingsPanel isOpen={showSettings} onClose={() => setShowSettings(false)} />
+            <TurboWebModal isOpen={isSalesModalOpen} onClose={() => setIsSalesModalOpen(false)} />
+            <SalesFooter onOpenInfo={() => setIsSalesModalOpen(true)} />
         </div>
     );
 };
