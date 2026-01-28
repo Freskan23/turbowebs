@@ -158,9 +158,9 @@ const DataInputSlide = ({ slide, onNext }) => {
 
     const isComplete = (slide.fields || []).every(field => {
         if (!field.required) return true;
-        const val = localData[field.key];
-        if (field.key === 'manusReport') return (val?.trim()?.length || 0) > 100;
-        return (val?.trim()?.length || 0) > 0;
+        const val = String(localData[field.key] || '');
+        if (field.key === 'manusReport') return val.trim().length > 100;
+        return val.trim().length > 0;
     });
 
     return (
@@ -309,7 +309,7 @@ const DataInputSlide = ({ slide, onNext }) => {
                                     width: '100%',
                                     padding: '1rem',
                                     backgroundColor: '#0f0f1a',
-                                    border: ((localData[field.key]?.trim()?.length || 0) > (field.key === 'manusReport' ? 100 : 0)) ? '2px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
+                                    border: (String(localData[field.key] || '').trim().length > (field.key === 'manusReport' ? 100 : 0)) ? '2px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
                                     borderRadius: '0.75rem',
                                     color: 'white',
                                     fontSize: '0.9rem',
@@ -339,7 +339,7 @@ const DataInputSlide = ({ slide, onNext }) => {
                             />
                         )}
 
-                        {field.key === 'manusReport' && (localData.manusReport?.trim()?.length || 0) > 100 && (
+                        {field.key === 'manusReport' && (String(localData.manusReport || '').trim().length) > 100 && (
                             <div style={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -427,12 +427,16 @@ const PromptSlide = ({ slide }) => {
     const calculateCompletion = () => {
         const requiredFields = (slide.fields || []).filter(f => f.required);
         if (requiredFields.length === 0) return 100;
-        const filled = requiredFields.filter(f => localData[f.key]?.trim()).length;
+        const filled = requiredFields.filter(f => {
+            const val = localData[f.key];
+            if (Array.isArray(val)) return val.length > 0;
+            return String(val || '').trim().length > 0;
+        }).length;
         return Math.round((filled / requiredFields.length) * 100);
     };
 
     const completion = calculateCompletion();
-    const hasManusReport = (businessData.manusReport?.trim()?.length || 0) > 100;
+    const hasManusReport = (String(businessData.manusReport || '').trim().length) > 100;
 
     // Manejar cambios en campos
     const handleFieldChange = (key, value) => {

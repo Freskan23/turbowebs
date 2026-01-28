@@ -30,7 +30,7 @@ export const SalesTopbar = ({ onOpenInfo }) => {
                     </div>
                     <span style={{ fontWeight: '500' }}>Quedan 3 de 10 licencias a precio de lanzamiento. </span>
                     <span style={{ color: '#9ca3af', textDecoration: 'line-through', marginLeft: '0.5rem' }}>599€</span>
-                    <span style={{ color: '#fbbf24', fontWeight: 'bold', marginLeft: '0.5rem' }}>Próximo precio: 599€</span>
+                    <span style={{ color: '#fbbf24', fontWeight: 'bold', marginLeft: '0.5rem' }}>350€</span>
                 </div>
             </div>
 
