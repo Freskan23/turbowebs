@@ -104,17 +104,22 @@ Entrega un checklist técnico accionable para el desarrollador.`,
 
 Entrega los prompts técnicos listos para ser pegados en el generador de imágenes.`,
 
-    // PASO 8: ESTRATEGIA FINAL
-    ESTRATEGIA_BASADA_AUDITORIA: `MANUS, resume todo en un PLAN DE ACCIÓN DE 30 DÍAS para dominar el Top 3 en {{ciudad}} con este nuevo sitio de {{categoria}}.
+    // PASO 8: ARCHIVOS SEO
+    ARCHIVOS_SEO_ESPECIALES: `MANUS, actúa como mi Experto en SEO Técnico y Arquitectura de Rastreo. Basándote en el REPORTE DE REFERENCIA, genera la "Carpintería Final" de mi web para que Google la adore.
+
+**TU TAREA ES GENERAR:**
+
+1. **ROBOTS.TXT:** Un archivo optimizado que permita el rastreo de servicios y barrios, bloquee lo irrelevante e indique la ruta del sitemap.
+2. **SITEMAP.XML:** La lista de rutas (URLs) que Manus propuso en el paso de arquitectura, formateadas para ser rastreadas.
+3. **PRE-ENTREGA DE SCHEMA AVANZADO:** Genera el código JSON-LD complementario para:
+   - **Breadcrumbs:** Ruta de navegación (Home > Ciudad > Barrio).
+   - **FAQ Schema:** Basado en las 3 preguntas más comunes que Manus detectó en los blogs líderes.
+   - **LocalBusiness extendido:** Con horarios y áreas de servicio específicas por zonas.
 
 **REPORTE DE REFERENCIA:**
 {{manusReport}}
 
-**CALENDARIO:**
-- Semana 1: Lanzamiento e Indexación.
-- Semana 2: Autoridad Local (GMB y Reseñas).
-- Semana 3: Expansión de Barrios.
-- Semana 4: Linkbuilding Local.`,
+Entrega el código de cada archivo por separado y listo para copiar en la raíz del hosting.`,
 
     // Compatibilidad
     EXTRAER_SERVICIOS_Y_BARRIOS: `MANUS, extrae una TABLA DE ARQUITECTURA (Sitemap) para {{ciudad}}. Lista cada Servicio y Barrio con su Slug de URL sugerido.`,

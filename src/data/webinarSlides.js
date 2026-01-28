@@ -235,25 +235,25 @@ export const WEBINAR_SLIDES = [
     {
         id: 9,
         type: 'prompt',
-        category: 'ESTRATEGIA',
+        category: 'SEO TÉCNICO',
         categoryColor: '#f59e0b',
-        title: 'Paso 8: Plan de Acción Final',
-        subtitle: 'Tu hoja de ruta para el Top 1',
-        objective: 'Resumir toda la estrategia en un plan de 4 semanas para dominar el sector en tu ciudad.',
+        title: 'Paso 8: Archivos Especiales SEO',
+        subtitle: 'Robots.txt, Sitemap y Schema Pro',
+        objective: 'Generar los archivos de configuración técnica (robots.txt, sitemap.xml) y el Schema Markup avanzado para que Google indexe y entienda tu web a la perfección.',
         info: {
-            why: "Tener la web es solo el principio. Necesitas saber qué hacer cada día para superar a los líderes.",
-            goal: "Un calendario de implementación de 30 días.",
-            tip: "Sigue el orden de: 1. Indexación, 2. Reseñas, 3. Contenido, 4. Backlinks."
+            why: "Una web sin estos archivos es invisible para Google. Aquí creamos los 'documentos de identidad' de tu sitio.",
+            goal: "Obtener el archivo robots.txt, la estructura del sitemap y el Schema complementario.",
+            tip: "Asegúrate de incluir la URL de tu sitemap dentro del archivo robots.txt para facilitar el rastreo."
         },
         benefits: [
-            'Calendario semanal de tareas SEO',
-            'Estrategia de captación de reseñas',
-            'Plan de expansión a ciudades vecinas',
-            'KPIs de seguimiento'
+            'Archivo robots.txt optimizado para rastreo',
+            'Estructura de sitemap.xml recomendada',
+            'Schema Markup avanzado (Breadcrumbs, FAQ)',
+            'Directivas de indexación seguras'
         ],
-        useCase: 'Para cuando ya tienes todo el material y quieres empezar a ejecutar.',
-        templateKey: 'ESTRATEGIA_BASADA_AUDITORIA',
-        icon: '📈',
+        useCase: 'Para el paso final antes de dar por terminada la optimización técnica del sitio.',
+        templateKey: 'ARCHIVOS_SEO_ESPECIALES',
+        icon: '⚙️',
         usesManusReport: true
     }
 ];
