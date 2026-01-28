@@ -12,51 +12,66 @@ export const WEBINAR_SLIDES = [
         subtitle: 'Domina el SEO Local con IA',
         author: 'Por Edu Laborda',
         agenda: [
-            { icon: '📋', title: 'Reporte de Manus', desc: 'Pega tu análisis de competencia' },
-            { icon: '🔧', title: 'Auditoría SEO Técnica', desc: 'Diagnóstico de webs competidoras' },
-            { icon: '⚡', title: 'Crear Location Pages', desc: 'Páginas optimizadas desde cero' },
-            { icon: '🎨', title: 'Diseño y Referencias', desc: 'Define el estilo visual' },
-            { icon: '📊', title: 'Estrategia SEO', desc: 'Plan de acción con KPIs' },
-            { icon: '🔑', title: 'Keywords Locales', desc: 'Encuentra oportunidades ocultas' },
-            { icon: '⚙️', title: 'Sistema de Componentes', desc: 'Escala con templates reutilizables' }
+            { icon: '🤖', title: 'Paso 1: Prompt Manus', desc: 'Prepara el análisis inicial' },
+            { icon: '📋', title: 'Paso 2: Pegar Reporte', desc: 'Usa los datos de competencia' },
+            { icon: '🔧', title: 'Paso 3: Auditoría SEO', desc: 'Diagnóstico técnico' },
+            { icon: '⚡', title: 'Paso 4: Crear Web', desc: 'Páginas optimizadas' },
+            { icon: '🎨', title: 'Paso 5: Diseño', desc: 'Estilo y referencias' },
+            { icon: '📊', title: 'Paso 6: Estrategia', desc: 'Plan de acción' },
+            { icon: '🔑', title: 'Paso 7: Keywords', desc: 'Oportunidades locales' },
+            { icon: '⚙️', title: 'Paso 8: Componentes', desc: 'Sistema escalable' }
         ]
     },
     {
         id: 1,
-        type: 'data-input',
-        category: 'DATOS BASE',
+        type: 'manus-prompt',
+        category: 'PASO 1',
         categoryColor: '#8b5cf6',
-        title: 'Reporte de Manus',
-        subtitle: 'El análisis de competencia ya está hecho',
+        title: 'Prompt para Manus',
+        subtitle: 'Copia este prompt y ejecútalo en Manus',
+        icon: '🤖',
+        description: 'Primero necesitas que Manus analice la competencia. Copia el prompt de abajo, pégalo en Manus, y cuando termine, pega el resultado en la siguiente página.',
+        templateKey: 'PROMPT_INICIAL_MANUS',
+        fields: [
+            {
+                key: 'categoria',
+                label: 'Sector / Categoría',
+                placeholder: 'Ej: Pintores, Cerrajeros, Fontaneros...',
+                type: 'text',
+                required: true
+            }
+        ],
+        outputHint: 'Copia el prompt generado, ejecútalo en Manus, y luego pasa a la siguiente página para pegar el resultado.'
+    },
+    {
+        id: 2,
+        type: 'data-input',
+        category: 'PASO 2',
+        categoryColor: '#10b981',
+        title: 'Resultado de Manus',
+        subtitle: 'Pega aquí el análisis que generó Manus',
         icon: '📋',
-        description: 'Manus ya realizó el análisis del Local Pack en ciudades europeas. Pega aquí el reporte completo para que los siguientes prompts trabajen con esos datos.',
+        description: 'Pega el reporte completo que Manus generó con el prompt anterior. Este análisis será la BASE para todos los prompts siguientes.',
         instructions: [
-            'Abre tu conversación con Manus donde hiciste el análisis de competencia',
-            'Copia el informe completo con todos los datos',
-            'Pégalo en el campo de abajo',
-            'Este reporte se usará en TODOS los prompts siguientes'
+            'Ejecuta el prompt del paso anterior en Manus',
+            'Espera a que complete el análisis',
+            'Copia TODO el resultado',
+            'Pégalo en el campo de abajo'
         ],
         fields: [
             {
                 key: 'manusReport',
                 label: 'Reporte completo de Manus',
-                placeholder: 'Pega aquí todo el análisis de competencia que generó Manus...\n\nIncluye:\n- Webs analizadas por ciudad\n- Encabezados y estructura\n- Elementos de conversión\n- Patrones comunes identificados\n- Recomendaciones',
+                placeholder: 'Pega aquí todo el análisis de competencia que generó Manus...\n\nDebe incluir:\n- Análisis por ciudad (Madrid, Barcelona, París...)\n- Datos del Local Pack\n- Auditoría SEO técnica\n- Patrones comunes\n- Recomendaciones',
                 type: 'textarea',
                 required: true,
                 large: true
-            },
-            {
-                key: 'categoria',
-                label: 'Sector analizado',
-                placeholder: 'Ej: Cerrajeros',
-                type: 'text',
-                required: true
             }
         ],
         outputHint: 'Este reporte es la BASE de todo. Se usará automáticamente en todos los prompts siguientes.'
     },
     {
-        id: 2,
+        id: 3,
         type: 'prompt',
         category: 'INVESTIGACIÓN',
         categoryColor: '#6366f1',
@@ -84,7 +99,7 @@ export const WEBINAR_SLIDES = [
         usesManusReport: true
     },
     {
-        id: 3,
+        id: 4,
         type: 'prompt',
         category: 'DESARROLLO',
         categoryColor: '#10b981',
@@ -140,7 +155,7 @@ export const WEBINAR_SLIDES = [
         usesManusReport: true
     },
     {
-        id: 4,
+        id: 5,
         type: 'prompt',
         category: 'DESARROLLO',
         categoryColor: '#10b981',
@@ -182,7 +197,7 @@ export const WEBINAR_SLIDES = [
         usesManusReport: true
     },
     {
-        id: 5,
+        id: 6,
         type: 'prompt',
         category: 'ESTRATEGIA',
         categoryColor: '#f59e0b',
@@ -217,7 +232,7 @@ export const WEBINAR_SLIDES = [
         usesManusReport: true
     },
     {
-        id: 6,
+        id: 7,
         type: 'prompt',
         category: 'ESTRATEGIA',
         categoryColor: '#f59e0b',
@@ -252,7 +267,7 @@ export const WEBINAR_SLIDES = [
         usesManusReport: true
     },
     {
-        id: 7,
+        id: 8,
         type: 'prompt',
         category: 'AVANZADO',
         categoryColor: '#ec4899',
