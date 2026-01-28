@@ -12,9 +12,9 @@ export const WEBINAR_SLIDES = [
         author: 'Por Edu Laborda',
         agenda: [
             { icon: '🔍', title: 'Análisis de Competencia', desc: 'Espía a los líderes del Local Pack' },
-            { icon: '🔧', title: 'Auditoría SEO Técnica', desc: 'Diagnóstico completo de tu web' },
+            { icon: '🔧', title: 'Auditoría SEO Técnica', desc: 'Diagnóstico de webs competidoras' },
             { icon: '⚡', title: 'Crear Location Pages', desc: 'Páginas optimizadas desde cero' },
-            { icon: '🎨', title: 'Optimizar Web Existente', desc: 'Mejora sin perder tu identidad' },
+            { icon: '🎨', title: 'Diseño y Referencias', desc: 'Define el estilo visual' },
             { icon: '📊', title: 'Estrategia SEO', desc: 'Plan de acción con KPIs' },
             { icon: '🔑', title: 'Keywords Locales', desc: 'Encuentra oportunidades ocultas' },
             { icon: '⚙️', title: 'Sistema de Componentes', desc: 'Escala con templates reutilizables' }
@@ -37,7 +37,6 @@ export const WEBINAR_SLIDES = [
         useCase: 'Ideal para iniciar cualquier proyecto de SEO local. Es el primer paso antes de crear o mejorar tu web.',
         templateKey: 'ANALISIS_COMPETENCIA_LOCAL',
         icon: '🔍',
-        // Campos requeridos para este prompt - ES EL PRIMERO, solo necesita categoría
         fields: [
             {
                 key: 'categoria',
@@ -47,8 +46,7 @@ export const WEBINAR_SLIDES = [
                 required: true
             }
         ],
-        // Output: Este prompt genera datos que alimentan los siguientes
-        outputHint: 'El resultado de este análisis lo usarás en los siguientes prompts para mejorarlos con IA.'
+        outputHint: 'El resultado de este análisis es la BASE de todo. Lo usarás en todos los siguientes prompts.'
     },
     {
         id: 2,
@@ -56,25 +54,18 @@ export const WEBINAR_SLIDES = [
         category: 'INVESTIGACIÓN',
         categoryColor: '#6366f1',
         title: 'Auditoría SEO Técnica',
-        subtitle: 'Diagnóstico completo de tu web actual',
-        objective: 'Realizar un análisis técnico exhaustivo para identificar problemas y oportunidades de mejora SEO.',
+        subtitle: 'Analiza la estructura técnica de los competidores',
+        objective: 'Extraer los detalles técnicos SEO de las webs competidoras para replicar lo que funciona.',
         benefits: [
-            'Detectar errores técnicos que afectan tu posicionamiento',
-            'Medir Core Web Vitals y velocidad de carga',
-            'Evaluar la optimización on-page actual',
-            'Priorizar mejoras por impacto'
+            'Ver qué schema markup usan los líderes',
+            'Analizar estructura de URLs y arquitectura',
+            'Identificar Core Web Vitals de referencia',
+            'Descubrir estrategias de internal linking'
         ],
-        useCase: 'Fundamental antes de cualquier optimización. Te da el mapa de lo que hay que arreglar.',
+        useCase: 'Para entender el "cómo" técnico de las webs que ya rankean.',
         templateKey: 'AUDITORIA_SEO_TECNICA',
         icon: '🔧',
         fields: [
-            {
-                key: 'url',
-                label: 'URL de tu web',
-                placeholder: 'https://tu-web.com',
-                type: 'url',
-                required: true
-            },
             {
                 key: 'categoria',
                 label: 'Sector',
@@ -90,12 +81,11 @@ export const WEBINAR_SLIDES = [
                 required: true
             }
         ],
-        // Para mejorar con IA, pueden pegar el resultado del análisis anterior
         aiEnhanceFields: [
             {
                 key: 'competitorAnalysis',
-                label: 'Pega aquí el resultado del Análisis de Competencia (Prompt 1)',
-                placeholder: 'Copia y pega el informe generado por Manus del análisis de competencia...',
+                label: 'Pega el resultado del Análisis de Competencia (Prompt 1)',
+                placeholder: 'Copia y pega el informe generado del análisis de competencia...',
                 type: 'textarea'
             }
         ]
@@ -114,7 +104,7 @@ export const WEBINAR_SLIDES = [
             'Schema markup completo para rich snippets',
             'Diseño mobile-first optimizado'
         ],
-        useCase: 'Cuando necesitas crear una página nueva para una ubicación específica de tu negocio.',
+        useCase: 'Para crear la página principal de tu negocio local desde cero.',
         templateKey: 'CREAR_LOCATION_PAGE',
         icon: '⚡',
         fields: [
@@ -151,13 +141,7 @@ export const WEBINAR_SLIDES = [
             {
                 key: 'competitorAnalysis',
                 label: 'Pega el Análisis de Competencia',
-                placeholder: 'El informe del Prompt 1 ayudará a crear una página con la estructura ganadora...',
-                type: 'textarea'
-            },
-            {
-                key: 'auditResults',
-                label: 'Pega la Auditoría SEO (opcional)',
-                placeholder: 'Si ya tienes una web, pega los hallazgos para evitar los mismos errores...',
+                placeholder: 'El informe del Prompt 1 - esto es CLAVE para crear la estructura ganadora...',
                 type: 'textarea'
             }
         ]
@@ -167,38 +151,52 @@ export const WEBINAR_SLIDES = [
         type: 'prompt',
         category: 'DESARROLLO',
         categoryColor: '#10b981',
-        title: 'Optimizar Web Existente',
-        subtitle: 'Mejora tu web actual con patrones ganadores',
-        objective: 'Aplicar todas las mejores prácticas identificadas del Local Pack a tu web existente sin perder tu identidad.',
+        title: 'Referencias de Diseño',
+        subtitle: 'Define el estilo visual con webs de ejemplo',
+        objective: 'Comunicar a la IA el estilo de diseño que quieres basándote en webs que te gustan.',
         benefits: [
-            'Mantener tu branding y contenido único',
-            'Implementar estructura de los líderes del sector',
-            'Añadir elementos faltantes (FAQ, Schema, etc.)',
-            'Mejorar sin empezar de cero'
+            'Definir paleta de colores y estilo',
+            'Mostrar ejemplos de layouts que te gustan',
+            'Especificar elementos visuales deseados',
+            'Obtener código CSS coherente con tu visión'
         ],
-        useCase: 'Cuando ya tienes una web pero no está rindiendo como debería en búsquedas locales.',
+        useCase: 'Para que la IA entienda qué tipo de diseño quieres para tu web.',
         templateKey: 'OPTIMIZAR_WEB_EXISTENTE',
         icon: '🎨',
         fields: [
             {
-                key: 'url',
-                label: 'URL de tu web actual',
-                placeholder: 'https://tu-web.com',
-                type: 'url',
-                required: true
+                key: 'referenceUrls',
+                label: 'URLs de webs que te gustan (estilo visual)',
+                placeholder: 'Ej: https://ejemplo1.com, https://ejemplo2.com',
+                type: 'text',
+                required: false
+            },
+            {
+                key: 'colorPreference',
+                label: 'Preferencia de colores',
+                placeholder: 'Ej: Azul profesional, Verde confianza, Naranja urgencia...',
+                type: 'text',
+                required: false
+            },
+            {
+                key: 'styleNotes',
+                label: 'Notas sobre el estilo',
+                placeholder: 'Ej: Minimalista, Moderno, Con mucho espacio en blanco...',
+                type: 'text',
+                required: false
             }
         ],
         aiEnhanceFields: [
             {
                 key: 'competitorAnalysis',
-                label: 'Pega el Análisis de Competencia (IMPORTANTE)',
-                placeholder: 'Este es el más importante - contiene las mejores prácticas a aplicar...',
+                label: 'Pega el Análisis de Competencia',
+                placeholder: 'Para combinar las mejores prácticas con tu estilo deseado...',
                 type: 'textarea'
             },
             {
-                key: 'auditResults',
-                label: 'Pega la Auditoría SEO',
-                placeholder: 'Los problemas detectados que hay que corregir...',
+                key: 'designNotes',
+                label: 'Describe qué te gusta de las webs de referencia',
+                placeholder: 'Ej: "De ejemplo1.com me gusta el hero con teléfono grande. De ejemplo2.com el grid de servicios..."',
                 type: 'textarea'
             }
         ]
@@ -241,12 +239,6 @@ export const WEBINAR_SLIDES = [
                 key: 'competitorAnalysis',
                 label: 'Pega el Análisis de Competencia',
                 placeholder: 'La base de la estrategia...',
-                type: 'textarea'
-            },
-            {
-                key: 'auditResults',
-                label: 'Pega la Auditoría SEO',
-                placeholder: 'Para priorizar las mejoras técnicas...',
                 type: 'textarea'
             }
         ]
