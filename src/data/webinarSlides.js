@@ -94,7 +94,7 @@ export const WEBINAR_SLIDES = [
             'Menú de navegación estructurado'
         ],
         useCase: 'Usa este código para crear el archivo index.html de tu web.',
-        templateKey: 'AUDITORIA_SEO_TECNICA',
+        templateKey: 'CONSTRUCCION_HOME_TURBOWEB',
         icon: '🏗️',
         fields: [
             { key: 'nombre', label: 'Nombre del Negocio *', placeholder: 'Ej: Madrid Pintores Pro', type: 'text', required: true },
@@ -107,8 +107,8 @@ export const WEBINAR_SLIDES = [
         type: 'prompt',
         category: 'CONSTRUCCIÓN',
         categoryColor: '#10b981',
-        title: 'Paso 3: Zonas y Barrios',
-        subtitle: 'Crea tus Location Pages masivas',
+        title: 'Paso 3: Constructor de Zonas',
+        subtitle: 'Crea tus Location Pages masivas con un clic',
         objective: 'Generar las páginas de aterrizaje específicas para cada barrio o zona de la ciudad identificada por Manus.',
         info: {
             why: "Para dominar el Local Pack, necesitas ser relevante en cada barrio. Estas páginas captan el tráfico hiper-local.",
@@ -122,7 +122,7 @@ export const WEBINAR_SLIDES = [
             'Schema markup de área de servicio'
         ],
         useCase: 'Para crear las subpáginas de barrios de tu ciudad.',
-        templateKey: 'CREAR_ZONAS_PAGES',
+        templateKey: 'CONSTRUCTOR_ZONAS_TURBOWEB',
         icon: '📍',
         fields: [
             { key: 'barriosZonas', label: 'Lista de Barrios (separados por coma)', placeholder: 'Chamberí, Salamanca, Retiro...', type: 'text', required: true }
@@ -134,8 +134,8 @@ export const WEBINAR_SLIDES = [
         type: 'prompt',
         category: 'CONSTRUCCIÓN',
         categoryColor: '#10b981',
-        title: 'Paso 4: Plan de Servicios Pro',
-        subtitle: 'Diseña tu Arquitectura de Servicios',
+        title: 'Paso 4: Constructor de Servicios',
+        subtitle: 'Vende Servicios como un Líder con IA',
         objective: 'Identificar qué servicios son clave para tu sector y definir cómo debe ser cada página: su estructura de H1-H3, su tipo de contenido y sus elementos de conversión.',
         info: {
             why: "No todos los servicios se venden igual. Aquí definimos cuáles crear y qué debe llevar cada uno (venta vs información).",
@@ -149,7 +149,7 @@ export const WEBINAR_SLIDES = [
             'Gatillos de conversión específicos por tipo de trabajo'
         ],
         useCase: 'Para saber qué escribir y cómo estructurar cada subpágina de servicio.',
-        templateKey: 'CREAR_SERVICIOS_PAGES',
+        templateKey: 'CONSTRUCTOR_SERVICIOS_TURBOWEB',
         icon: '🛠️',
         fields: [
             { key: 'serviciosList', label: 'Servicios a Analizar (o deja en blanco para que la IA sugiera)', placeholder: 'Ej: Pintura de oficinas, Alisado de paredes...', type: 'text', required: false }
@@ -161,8 +161,8 @@ export const WEBINAR_SLIDES = [
         type: 'prompt',
         category: 'OPTIMIZACIÓN',
         categoryColor: '#6366f1',
-        title: 'Paso 5: Interlinking de Silos',
-        subtitle: 'Conecta todo para que Google te ame',
+        title: 'Paso 5: Constructor de Silos',
+        subtitle: 'Conecta tu Red para dominar el enlazado',
         objective: 'Definir la estructura de enlaces internos entre la Home, los Servicios y los Barrios para pasar autoridad.',
         info: {
             why: "El interlinking es lo que convierte una colección de páginas en una web potente ante Google.",
@@ -176,7 +176,7 @@ export const WEBINAR_SLIDES = [
             'Experiencia de usuario fluida'
         ],
         useCase: 'Para configurar tus menús y enlaces finales.',
-        templateKey: 'ESTRATEGIA_INTERLINKING',
+        templateKey: 'CONSTRUCTOR_INTERLINKING_TURBOWEB',
         icon: '🔗',
         usesManusReport: true
     },

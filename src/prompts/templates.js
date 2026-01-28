@@ -12,57 +12,71 @@ export const PROMPTS = {
 
 **FORMATO:** Tabla de servicios, Top 10 barrios por ciudad y checklist de victoria técnica.`,
 
-    // PASO 2: LA WEB (Este prompt se genera BAJO CADA SLIDE para que el usuario lo pegue en Manus)
-    AUDITORIA_SEO_TECNICA: `MANUS, actúa como mi desarrollador web experto en SEO Local. Basándote en el REPORTE DE ANÁLISIS que ya tenemos (ignora fechas y metadatos generales, ve al grano), construye el CÓDIGO de la Home Page para {{nombre}} en {{ciudad}}.
+    // PASO 2: CONSTRUCCIÓN (Generador de Landing Page de Alta Conversión)
+    CONSTRUCCION_HOME_TURBOWEB: `MANUS, actúa como mi Senior Web Developer y Experto en CRO (Conversion Rate Optimization). Tu misión es CONSTRUIR la Home Page definitiva para {{nombre}} en {{ciudad}}, usando la inteligencia del REPORTE DE ANÁLISIS.
 
-**REPORTE DE REFERENCIA:**
+**FILOSOFÍA TURBOWEB:**
+- **Móvil-First:** Diseño pensado para el pulgar y carga instantánea.
+- **Copywriting Persuasivo:** No solo listes servicios; vende soluciones a los problemas detectados en el reporte.
+- **Arquitectura de Silos:** Prepara la base para escalar a cientos de barrios.
+
+**REPORTE DE REFERENCIA (Úsalo para el contenido y USPs):**
 {{manusReport}}
 
 **ENTREGA:**
-1. **HTML5/CSS3:** Estructura completa con Header, Hero persuasivo, Secciones de Servicios y Barrios.
-2. **SEO ON-PAGE:** Títulos (Title) y Meta Descriptions optimizadas.
-3. **SCHEMA MARKUP:** Script JSON-LD de LocalBusiness inyectado con los datos de {{nombre}}.`,
+1. **HTML5 PROFESIONAL (Cuerpo completo):** Hero con CTA magnético, Sección de "Por qué nosotros" (basada en debilidades de la competencia), Cuadrícula de Servicios Principales, Mapa de Barrios y Footer legal/SEO.
+2. **CSS3 TURBO:** Estilos modernos, limpios y optimizados para velocidad (sin frameworks pesados).
+3. **SEO & SCHEMA PRO:** Title y Meta Description de alto CTR + Script JSON-LD completo de LocalBusiness con servicios integrados.
 
-    // PASO 3: ZONAS/BARRIOS
-    CREAR_ZONAS_PAGES: `MANUS, genera ahora el contenido para las LOCATION PAGES de {{ciudad}}. Usando la inteligencia del reporte previo, crea las landings para los siguientes barrios comerciales: {{barriosZonas}}.
+Transforma los datos en una máquina de captar clientes.`,
+
+    // PASO 3: ZONAS/BARRIOS (Constructor Masivo de Location Pages)
+    CONSTRUCTOR_ZONAS_TURBOWEB: `MANUS, actúa como mi Especialista en SEO Local y Copywriter de Proximidad. Tu misión es CONSTRUIR el contenido para las LOCATION PAGES de {{ciudad}}. 
+
+Para cada barrio comercial listado: {{barriosZonas}}, genera un entregable listo para publicar.
+
+**REPORTE DE REFERENCIA (ADN de la ciudad):**
+{{manusReport}}
+
+**REQUISITOS POR CADA PÁGINA DE BARRIO:**
+1. **HEADING (H1):** Optimizado para "[Servicio] en [Nombre del Barrio]".
+2. **COPY HIPER-LOCAL:** Incluye referencias a lugares emblemáticos, distritos colindantes o "vibras" de la zona para que Google la vea como única.
+3. **CONVERSIÓN TURBO:** Integra CTAs de urgencia y botones de llamada específicos para esa ubicación.
+4. **BLOQUE DE CONFIANZA:** Basado en los puntos de dolor que viste en la competencia regional, escribe un párrafo que resuelva por qué somos la mejor opción en ese barrio concreto.
+
+Genera el contenido estructurado de forma que se pueda copiar y pegar directamente en la web.`,
+
+    // PASO 4: SERVICIOS (Constructor Maestro de Páginas de Servicio)
+    CONSTRUCTOR_SERVICIOS_TURBOWEB: `MANUS, actúa como mi Director de Estrategia de Contenidos y Experto en Ventas. Tu misión es CONSTRUIR el esqueleto y el copy profesional para las PÁGINAS DE SERVICIO de la web.
+
+Para cada servicio: {{serviciosList}}, genera el contenido optimizado siguiendo la inteligencia del REPORTE DE REFERENCIA.
+
+**REQUISITOS POR SERVICIO:**
+1. **JERARQUÍA H1-H3:** Títulos magnéticos que ataquen el beneficio directo y la keyword principal.
+2. **PROPUESTA DE VALOR (USPs):** Usa lo que detectaste de los líderes de otras ciudades para escribir una sección de "Por qué este servicio con nosotros es diferente".
+3. **CONTENIDO DE CONVERSIÓN:** Escribe el copy para 3 secciones clave: Beneficios Rápidos, Cómo lo hacemos y Pregunta de Cierre (CTA).
+4. **SCHEMA SERVICE:** Genera el script JSON-LD de Service detallado con los datos extraídos del sector.
 
 **REPORTE DE REFERENCIA:**
 {{manusReport}}
 
-**REQUISITOS POR PÁGINA:**
-- Texto hiper-local (menciona puntos de interés o características del barrio).
-- Enfoque de conversión total (CTAs claros).
-- Estructura H1-H3 optimizada para [Servicio] en [Barrio].
-- Integra los "puntos de dolor" que detectaste en la competencia.`,
+Entrega el contenido listo para ser estructurado en la web, con un tono profesional y directo al grano.`,
 
-    // PASO 4: SERVICIOS
-    CREAR_SERVICIOS_PAGES: `MANUS, actúa como mi Director de Estrategia de Contenidos. Basándote en el REPORTE DE REFERENCIA, genera el **PLAN MAESTRO DE PÁGINAS DE SERVICIO** para {{categoria}}.
+    // PASO 5: INTERLINKING (Constructor de Arquitectura de Silos)
+    CONSTRUCTOR_INTERLINKING_TURBOWEB: `MANUS, actúa como mi Arquitecto SEO y Experto en Link Building Interno. Tu misión es CONSTRUIR el mapa de ARQUITECTURA DE SILOS definitivo para esta web.
 
-**TU OBJETIVO:** Definir exactamente qué páginas de servicio individuales debemos crear para dominar el mercado, qué estructura técnica deben tener y qué tipo de contenido debe incluir cada una para convertir.
+**OBJETIVO:** Conectar la Home, los Servicios y los Barrios (Locations) para que la autoridad fluya perfectamente y Google indexe toda la red de forma masiva.
 
-**SERVICIOS CLAVE A PROCESAR:** {{serviciosList}}
-
-**PARA CADA SERVICIO, ENTREGA:**
-1. **ESTRUCTURA DE PÁGINA:** Define los H1, H2 sugeridos y la jerarquía de información.
-2. **TIPO DE CONTENIDO:** ¿Es una landing page de venta pura, una guía técnica o una página de urgencias? Especifica el enfoque.
-3. **ELEMENTOS DE CONVERSIÓN:** Qué gatillos mentales y CTAs (botones, formularios) son obligatorios según lo que les funciona a los líderes.
-4. **VALOR DIFERENCIAL:** Qué debemos incluir para superar lo que Manus vio en la competencia (USPs).
+**ENTREGABLE DE CONSTRUCCIÓN:**
+1. **MAPA DE ENLAZADO (Servicios -> Barrios):** Define cómo debe cada página de servicio enlazar a sus barrios correspondientes (ej: "Pintores Pro en Madrid" enlazando a "Pintores en Chamberí"). Genera el listado de anchor text sugeridos.
+2. **ESTRUCTURA DE MENÚ PRINCIPAL:** Diseña el menú superior para que sea limpio, móvil-friendly y potente para SEO.
+3. **FOOTER MAESTRO (FAT FOOTER):** Crea la estructura del footer para agrupar todos los barrios y servicios por zonas, facilitando el rastreo de Googlebot.
+4. **DISTRIBUCIÓN DE LINK JUICE:** Explica la estrategia para pasar autoridad desde las páginas con más tráfico/fuerza hacia las nuevas location pages de barrios.
 
 **REPORTE DE REFERENCIA:**
 {{manusReport}}
 
-Entrega una hoja de ruta técnica lista para empezar a construir página por página.`,
-
-    // PASO 5: INTERLINKING
-    ESTRATEGIA_INTERLINKING: `MANUS, diseña la ARQUITECTURA DE SILOS para esta web. Necesito el mapa de enlazado interno para conectar la Home, los Servicios y los Barrios.
-
-**REPORTE DE REFERENCIA:**
-{{manusReport}}
-
-**INDICACIONES:**
-- Cómo enlazar desde los Servicios hacia los Barrios (Location Pages).
-- Estructura del Menú Principal y del Footer para máxima indexación.
-- Distribución de autoridad (Link Juice) desde las páginas más fuertes.`,
+Convierte la teoría en un plan de montaje real para los menús y enlaces de la web.`,
 
     // PASO 6: PAGESPEED
     OPTIMIZACION_SPEED: `MANUS, actúa como mi Especialista Técnico en WPO (Web Performance Optimization). Tengo una web en producción y necesito llegar al 100/100 en Google PageSpeed.
