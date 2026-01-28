@@ -1,71 +1,75 @@
-// Configuración de las páginas/slides del webinar
-// Cada slide tiene campos requeridos específicos para su prompt
-// FLUJO: Manus hace el análisis → Usuario pega el reporte → Prompts trabajan con esos datos
-
+// Estructura de los slides del webinar
 export const WEBINAR_SLIDES = [
     {
         id: 0,
         type: 'intro',
-        category: 'BIENVENIDA',
-        categoryColor: '#6366f1',
-        title: 'TurboWebs 2026',
-        subtitle: 'Domina el SEO Local con IA',
-        author: 'Por Edu Laborda',
+        title: 'Domina el Local Pack 2026',
+        subtitle: 'Crea Redes de Webs de Servicios con IA',
+        content: 'Bienvenido a la Masterclass. Hoy vamos a transformar el análisis de Manus en una red de webs real, optimizada y lista para captar clientes en minutos.',
         agenda: [
-            { icon: '🤖', title: 'Paso 1: Prompt Manus', desc: 'Prepara el análisis inicial' },
-            { icon: '📋', title: 'Paso 2: Pegar Reporte', desc: 'Usa los datos de competencia' },
-            { icon: '🔧', title: 'Paso 3: Auditoría SEO', desc: 'Diagnóstico técnico' },
-            { icon: '⚡', title: 'Paso 4: Crear Web', desc: 'Páginas optimizadas' },
-            { icon: '🎨', title: 'Paso 5: Diseño', desc: 'Estilo y referencias' },
-            { icon: '📊', title: 'Paso 6: Estrategia', desc: 'Plan de acción' },
-            { icon: '🔑', title: 'Paso 7: Keywords', desc: 'Oportunidades locales' },
-            { icon: '⚙️', title: 'Paso 8: Componentes', desc: 'Sistema escalable' }
+            { icon: '🤖', title: 'Paso 1: Manus', desc: 'Análisis de competencia' },
+            { icon: '🏗️', title: 'Paso 2: La Web', desc: 'Montaje de Home y Estructura' },
+            { icon: '📍', title: 'Paso 3: Zonas', desc: 'Páginas de Barrios (Locations)' },
+            { icon: '🛠️', title: 'Paso 4: Servicios', desc: 'Páginas de Servicio individuales' },
+            { icon: '🔗', title: 'Paso 5: Interlinking', desc: 'Estructura SEO de Silos' },
+            { icon: '⚡', title: 'Paso 6: PageSpeed', desc: 'Optimización de carga' },
+            { icon: '📸', title: 'Paso 7: Fotos Pro', desc: 'Generación con Nano Banana' },
+            { icon: '📈', title: 'Paso 8: Estrategia', desc: 'Plan de acción para rankear' }
         ]
     },
     {
         id: 1,
-        type: 'manus-prompt',
-        category: 'PASO 1',
-        categoryColor: '#8b5cf6',
-        title: 'Prompt para Manus',
-        subtitle: 'Copia este prompt y ejecútalo en Manus',
-        icon: '🤖',
-        description: 'Primero necesitas que Manus analice la competencia. Copia el prompt de abajo para que Manus escrapee los MENÚS de servicios y los BLOGS de los mejores competidores en 7 ciudades.',
+        type: 'prompt',
+        category: 'INVESTIGACIÓN',
+        categoryColor: '#6366f1',
+        title: 'Análisis Inicial con Manus',
+        subtitle: 'El "Cerebro" de tu estrategia local',
+        objective: 'Extraer los patrones ganadores de las 10 mejores webs de tu competencia en 7 ciudades europeas usando Manus.',
+        info: {
+            why: "Para superar a los líderes, primero debemos saber exactamente qué están haciendo: qué servicios ofrecen, qué barrios dominan y qué fallos técnicos tienen.",
+            goal: "Obtener un reporte detallado de servicios, barrios y auditoría técnica.",
+            tip: "Copia este prompt y ejecútalo en Manus. El resultado lo usaremos en el siguiente paso."
+        },
+        benefits: [
+            'Mapeo exhaustivo de servicios ganadores',
+            'Identificación de los 10 mejores barrios por ciudad',
+            'Auditoría SEO técnica de los Top 3 competidores',
+            'Detección de oportunidades de urgencias/24h'
+        ],
+        useCase: 'Para empresas de servicios que quieren expandirse a nivel europeo.',
         templateKey: 'PROMPT_INICIAL_MANUS',
+        icon: '🤖',
         fields: [
             {
                 key: 'categoria',
-                label: 'Sector / Categoría',
-                placeholder: 'Ej: Pintores, Cerrajeros, Fontaneros...',
+                label: 'Tu Categoría de Negocio',
+                placeholder: 'Ej: Pintores, Fontaneros...',
                 type: 'text',
                 required: true
             }
         ],
-        outputHint: 'Copia el prompt generado, ejecútalo en Manus, y luego pasa a la siguiente página para pegar el resultado.'
+        usesManusReport: false
     },
     {
         id: 2,
         type: 'data-input',
-        category: 'PASO 2',
+        category: 'REPORTE',
         categoryColor: '#10b981',
-        title: 'Resultado de Manus',
-        subtitle: 'Pega aquí el análisis que generó Manus',
-        icon: '📋',
-        description: 'Pega el reporte completo que Manus generó con el prompt anterior. Este análisis será la BASE para todos los prompts siguientes.',
-        instructions: [
-            'Ejecuta el prompt del paso anterior en Manus',
-            'Espera a que complete el análisis',
-            'Copia TODO el resultado',
-            'Pégalo en el campo de abajo'
-        ],
+        title: 'Pegar Reporte de Manus',
+        subtitle: 'Vincula los datos del análisis a tu web',
+        description: 'Pega el informe completo que te ha generado Manus. Este reporte servirá de "cerebro" para todos los pasos siguientes de construcción.',
+        info: {
+            why: "Sin los datos de Manus, la IA solo puede inventar. Con el reporte, la IA copiará lo que ya está funcionando en Google.",
+            goal: "Tener el contexto de competitividad, servicios y barrios cargado en el sistema.",
+            tip: "Copia todo el texto de Manus (desde el título hasta las conclusiones) y pégalo aquí."
+        },
         fields: [
             {
                 key: 'manusReport',
-                label: 'Reporte completo de Manus',
-                placeholder: 'Pega aquí todo el análisis de competencia que generó Manus...\n\nDebe incluir:\n- Análisis por ciudad (Madrid, Barcelona, París...)\n- Datos del Local Pack\n- Auditoría SEO técnica\n- Patrones comunes\n- Recomendaciones',
+                label: 'Reporte de Manus *',
+                placeholder: 'Pega aquí el análisis de Manus...',
                 type: 'textarea',
-                required: true,
-                large: true
+                required: true
             }
         ],
         outputHint: 'Este reporte es la BASE de todo. Se usará automáticamente en todos los prompts siguientes.'
@@ -73,217 +77,183 @@ export const WEBINAR_SLIDES = [
     {
         id: 3,
         type: 'prompt',
-        category: 'INVESTIGACIÓN',
-        categoryColor: '#6366f1',
-        title: 'Auditoría SEO Técnica',
-        subtitle: 'Extrae los detalles técnicos de los competidores',
-        objective: 'A partir del reporte de Manus, profundizar en los aspectos técnicos SEO para replicar exactamente lo que funciona.',
+        category: 'CONSTRUCCIÓN',
+        categoryColor: '#10b981',
+        title: 'Paso 2: ¡MONTAR LA WEB!',
+        subtitle: 'Generamos la Home y la Estructura principal',
+        objective: 'Basándonos en Manus, vamos a crear el esqueleto REAL de tu Home: Header, Hero, Estructura de Secciones, Metadatos y Schema Markup.',
+        info: {
+            why: "La Home es tu tarjeta de visita y el centro de tu SEO. Aquí construimos el código base.",
+            goal: "Obtener el HTML/CSS de la Home Page y el JSON-LD listo para usar.",
+            tip: "Este prompt integra los títulos y metas que Manus identificó como ganadores."
+        },
         benefits: [
-            'Ver qué schema markup usan los líderes',
-            'Analizar estructura de URLs y arquitectura',
-            'Identificar Core Web Vitals de referencia',
-            'Descubrir estrategias de internal linking'
+            'Código HTML completo de la Home Page',
+            'JSON-LD LocalBusiness inyectado',
+            'Metadatos (Title/Meta) de alta conversión',
+            'Menú de navegación estructurado'
         ],
-        useCase: 'Para entender el "cómo" técnico de las webs que ya rankean.',
+        useCase: 'Usa este código para crear el archivo index.html de tu web.',
         templateKey: 'AUDITORIA_SEO_TECNICA',
-        icon: '🔧',
+        icon: '🏗️',
         fields: [
-            {
-                key: 'ciudad',
-                label: 'Ciudad principal para tu negocio',
-                placeholder: 'Ej: Majadahonda',
-                type: 'text',
-                required: true
-            }
+            { key: 'nombre', label: 'Nombre del Negocio *', placeholder: 'Ej: Madrid Pintores Pro', type: 'text', required: true },
+            { key: 'ciudad', label: 'Ciudad Principal *', placeholder: 'Ej: Madrid', type: 'text', required: true }
         ],
         usesManusReport: true
     },
     {
         id: 4,
         type: 'prompt',
-        category: 'DESARROLLO',
+        category: 'CONSTRUCCIÓN',
         categoryColor: '#10b981',
-        title: 'Crear Location Page',
-        subtitle: 'Página de localización optimizada desde cero',
-        objective: 'Crear una página de localización completa aplicando todas las mejores prácticas identificadas en el reporte de Manus.',
+        title: 'Paso 3: Zonas y Barrios',
+        subtitle: 'Crea tus Location Pages masivas',
+        objective: 'Generar las páginas de aterrizaje específicas para cada barrio o zona de la ciudad identificada por Manus.',
+        info: {
+            why: "Para dominar el Local Pack, necesitas ser relevante en cada barrio. Estas páginas captan el tráfico hiper-local.",
+            goal: "Obtener el contenido y la estructura para las páginas de barrios (ej: /madrid/chamberi).",
+            tip: "Pide a la IA que use los datos de 'Barrios' del reporte de Manus para personalizar cada página."
+        },
         benefits: [
-            'Estructura probada que funciona en el Local Pack',
-            'Todos los elementos de conversión necesarios',
-            'Schema markup completo para rich snippets',
-            'Diseño mobile-first optimizado'
+            'Estructura masiva de Location Pages',
+            'Keywords locales integradas por zona',
+            'Interlinking desde la Home a los barrios',
+            'Schema markup de área de servicio'
         ],
-        useCase: 'Para crear la página principal de tu negocio local desde cero.',
-        templateKey: 'CREAR_LOCATION_PAGE',
-        icon: '⚡',
+        useCase: 'Para crear las subpáginas de barrios de tu ciudad.',
+        templateKey: 'CREAR_ZONAS_PAGES',
+        icon: '📍',
         fields: [
-            {
-                key: 'nombre',
-                label: 'Nombre del negocio',
-                placeholder: 'Ej: Cerrajería Aguado',
-                type: 'text',
-                required: true
-            },
-            {
-                key: 'ciudad',
-                label: 'Ciudad',
-                placeholder: 'Ej: Majadahonda',
-                type: 'text',
-                required: true
-            },
-            {
-                key: 'barriosZonas',
-                label: 'Barrios / Zonas de servicio',
-                placeholder: 'Ej: Las Rozas, Boadilla, Pozuelo...',
-                type: 'text',
-                required: false
-            },
-            {
-                key: 'telefono',
-                label: 'Teléfono principal',
-                placeholder: 'Ej: 614 040 443',
-                type: 'text',
-                required: false
-            },
-            {
-                key: 'email',
-                label: 'Email de contacto',
-                placeholder: 'Ej: info@cerrajeriamajadahonda.com',
-                type: 'text',
-                required: false
-            }
+            { key: 'barriosZonas', label: 'Lista de Barrios (separados por coma)', placeholder: 'Chamberí, Salamanca, Retiro...', type: 'text', required: true }
         ],
         usesManusReport: true
     },
     {
         id: 5,
         type: 'prompt',
-        category: 'DESARROLLO',
+        category: 'CONSTRUCCIÓN',
         categoryColor: '#10b981',
-        title: 'Referencias de Diseño',
-        subtitle: 'Define el estilo visual con webs de ejemplo',
-        objective: 'Comunicar a la IA el estilo de diseño que quieres, combinando referencias visuales con los patrones ganadores del reporte de Manus.',
+        title: 'Paso 4: Plan de Servicios Pro',
+        subtitle: 'Diseña tu Arquitectura de Servicios',
+        objective: 'Identificar qué servicios son clave para tu sector y definir cómo debe ser cada página: su estructura de H1-H3, su tipo de contenido y sus elementos de conversión.',
+        info: {
+            why: "No todos los servicios se venden igual. Aquí definimos cuáles crear y qué debe llevar cada uno (venta vs información).",
+            goal: "Obtener un plan maestro de páginas de servicio con su estructura y enfoque de copy.",
+            tip: "Usa 'Mejorar con IA' para que OpenAI identifique por ti los servicios estrella del reporte de Manus y te dé la estructura ideal para cada uno."
+        },
         benefits: [
-            'Definir paleta de colores y estilo',
-            'Mostrar ejemplos de layouts que te gustan',
-            'Especificar elementos visuales deseados',
-            'Obtener código CSS coherente con tu visión'
+            'Plan Maestro de contenidos por cada servicio',
+            'Definición de estructura H1, H2 y secciones',
+            'Diferenciación de tipos de página (Urgencia/Venta)',
+            'Gatillos de conversión específicos por tipo de trabajo'
         ],
-        useCase: 'Para que la IA entienda qué tipo de diseño quieres para tu web.',
-        templateKey: 'OPTIMIZAR_WEB_EXISTENTE',
-        icon: '🎨',
+        useCase: 'Para saber qué escribir y cómo estructurar cada subpágina de servicio.',
+        templateKey: 'CREAR_SERVICIOS_PAGES',
+        icon: '🛠️',
         fields: [
-            {
-                key: 'referenceUrls',
-                label: 'URLs de webs que te gustan (estilo visual)',
-                placeholder: 'Ej: https://ejemplo1.com, https://ejemplo2.com',
-                type: 'text',
-                required: false
-            },
-            {
-                key: 'colorPreference',
-                label: 'Preferencia de colores',
-                placeholder: 'Ej: Rojo granate corporativo, Azul profesional...',
-                type: 'text',
-                required: false
-            },
-            {
-                key: 'styleNotes',
-                label: 'Notas sobre el estilo',
-                placeholder: 'Ej: Minimalista, Moderno, Con hero grande y teléfono visible...',
-                type: 'text',
-                required: false
-            }
+            { key: 'serviciosList', label: 'Servicios a Analizar (o deja en blanco para que la IA sugiera)', placeholder: 'Ej: Pintura de oficinas, Alisado de paredes...', type: 'text', required: false }
         ],
         usesManusReport: true
     },
     {
         id: 6,
         type: 'prompt',
-        category: 'ESTRATEGIA',
-        categoryColor: '#f59e0b',
-        title: 'Estrategia SEO Completa',
-        subtitle: 'Plan de acción basado en los datos de Manus',
-        objective: 'Diseñar una estrategia SEO local específica usando los patrones ganadores identificados en el reporte de Manus.',
+        category: 'OPTIMIZACIÓN',
+        categoryColor: '#6366f1',
+        title: 'Paso 5: Interlinking de Silos',
+        subtitle: 'Conecta todo para que Google te ame',
+        objective: 'Definir la estructura de enlaces internos entre la Home, los Servicios y los Barrios para pasar autoridad.',
+        info: {
+            why: "El interlinking es lo que convierte una colección de páginas en una web potente ante Google.",
+            goal: "Un mapa de enlazado interno para tu web.",
+            tip: "Asegúrate de enlazar siempre desde los servicios hacia los barrios donde se ofrecen."
+        },
         benefits: [
-            'Roadmap claro con prioridades definidas',
-            'KPIs medibles y alcanzables',
-            'Plan de contenidos mensual',
-            'Estrategia de link building local'
+            'Mapa de arquitectura de silos',
+            'Distribución de Link Juice automática',
+            'Mejora en la indexación de páginas secundarias',
+            'Experiencia de usuario fluida'
         ],
-        useCase: 'Para tener un plan a 3-6 meses con acciones concretas y medibles.',
-        templateKey: 'ESTRATEGIA_BASADA_AUDITORIA',
-        icon: '📊',
-        fields: [
-            {
-                key: 'nombre',
-                label: 'Nombre del negocio',
-                placeholder: 'Ej: Cerrajería Aguado',
-                type: 'text',
-                required: true
-            },
-            {
-                key: 'ciudad',
-                label: 'Ciudad principal',
-                placeholder: 'Ej: Majadahonda',
-                type: 'text',
-                required: true
-            }
-        ],
+        useCase: 'Para configurar tus menús y enlaces finales.',
+        templateKey: 'ESTRATEGIA_INTERLINKING',
+        icon: '🔗',
         usesManusReport: true
     },
     {
         id: 7,
         type: 'prompt',
-        category: 'ESTRATEGIA',
-        categoryColor: '#f59e0b',
-        title: 'Keywords Locales',
-        subtitle: 'Investigación de palabras clave con intención local',
-        objective: 'Identificar todas las oportunidades de keywords locales basándose en lo que funcionó en el análisis de Manus.',
+        category: 'OPTIMIZACIÓN',
+        categoryColor: '#6366f1',
+        title: 'Paso 6: PageSpeed Máximo',
+        subtitle: 'Haz que tu web vuele',
+        objective: 'Generar el checklist y las directrices técnicas para conseguir un 100/100 en Lighthouse.',
+        info: {
+            why: "En el Local Pack, la velocidad es un factor de ranking crítico. Una web lenta no convierte.",
+            goal: "Checklist técnico de velocidad y rendimiento.",
+            tip: "Prioriza el uso de formatos WebP y la carga diferida (lazy loading)."
+        },
         benefits: [
-            'Keywords long-tail de baja competencia',
-            'Términos por barrio y zona',
-            'Preguntas para featured snippets',
-            'Priorización por volumen e intención'
+            'Optimización de carga crítica',
+            'Checklist de formatos de imagen',
+            'Configuración de caché sugerida',
+            'Eliminación de JS innecesario'
         ],
-        useCase: 'Para saber exactamente qué busca tu cliente potencial y cómo lo busca.',
-        templateKey: 'KEYWORDS_LOCALES',
-        icon: '🔑',
+        useCase: 'Para cuando ya tienes la web montada (o en vista previa) y quieres la máxima puntuación.',
+        templateKey: 'OPTIMIZACION_SPEED',
+        icon: '⚡',
         fields: [
-            {
-                key: 'ciudad',
-                label: 'Ciudad principal',
-                placeholder: 'Ej: Majadahonda',
-                type: 'text',
-                required: true
-            },
-            {
-                key: 'barriosZonas',
-                label: 'Barrios / Zonas',
-                placeholder: 'Ej: Las Rozas, Boadilla, Pozuelo...',
-                type: 'text',
-                required: false
-            }
+            { key: 'pageUrl', label: 'URL a analizar (opcional)', placeholder: 'Ej: https://tu-vista-previa.vercel.app', type: 'text', required: false },
+            { key: 'pagespeedData', label: 'Reporte de PageSpeed (pega los fallos detectamos)', placeholder: 'Copia y pega aquí los puntos rojos que te da Google PageSpeed Insights...', type: 'textarea', required: true }
         ],
-        usesManusReport: true
+        usesManusReport: false
     },
     {
         id: 8,
         type: 'prompt',
-        category: 'AVANZADO',
+        category: 'VISUAL',
         categoryColor: '#ec4899',
-        title: 'Sistema de Componentes',
-        subtitle: 'Librería reutilizable para location pages',
-        objective: 'Crear un sistema de componentes HTML/CSS reutilizables basados en los patrones ganadores del reporte de Manus.',
+        title: 'Paso 7: Identidad Visual Completa',
+        subtitle: 'Logos, Iconos y Fotos con Nano Banana',
+        objective: 'Generar los prompts exactos para crear toda la capa visual de tu marca: desde el Logo y los Iconos personalizados hasta fotos realistas para cada servicio y cada barrio.',
+        info: {
+            why: "Una web profesional necesita coherencia visual. Aquí creamos el diseño del logo, iconos que encajen con tu marca y fotos únicas para cada ubicación.",
+            goal: "Obtener un pack de prompts visuales para generar Logo, Iconos, Fotos de Servicios y Fotos de Barrios.",
+            tip: "Pide a la IA que mantenga el mismo estilo artístico en todos los prompts para que la web parezca diseñada por una agencia."
+        },
         benefits: [
-            'Componentes plug-and-play',
-            'Consistencia en todas las páginas',
-            'Fácil de mantener y actualizar',
-            'Escalable para múltiples ubicaciones'
+            'Diseño de Logo profesional y minimalista',
+            'Pack de iconos coherentes con el sector',
+            'Fotos ultra-realistas para cada página de servicio',
+            'Imágenes ambientales por cada barrio/ubicación'
         ],
-        useCase: 'Cuando gestionas múltiples ubicaciones o clientes y necesitas escalar.',
-        templateKey: 'CREAR_SISTEMA_COMPONENTES',
-        icon: '⚙️',
-        fields: [],
+        useCase: 'Para tener todo el material gráfico antes de subir el contenido final.',
+        templateKey: 'PROMPTS_NANO_BANANA',
+        icon: '📸',
+        usesManusReport: true
+    },
+    {
+        id: 9,
+        type: 'prompt',
+        category: 'ESTRATEGIA',
+        categoryColor: '#f59e0b',
+        title: 'Paso 8: Plan de Acción Final',
+        subtitle: 'Tu hoja de ruta para el Top 1',
+        objective: 'Resumir toda la estrategia en un plan de 4 semanas para dominar el sector en tu ciudad.',
+        info: {
+            why: "Tener la web es solo el principio. Necesitas saber qué hacer cada día para superar a los líderes.",
+            goal: "Un calendario de implementación de 30 días.",
+            tip: "Sigue el orden de: 1. Indexación, 2. Reseñas, 3. Contenido, 4. Backlinks."
+        },
+        benefits: [
+            'Calendario semanal de tareas SEO',
+            'Estrategia de captación de reseñas',
+            'Plan de expansión a ciudades vecinas',
+            'KPIs de seguimiento'
+        ],
+        useCase: 'Para cuando ya tienes todo el material y quieres empezar a ejecutar.',
+        templateKey: 'ESTRATEGIA_BASADA_AUDITORIA',
+        icon: '📈',
         usesManusReport: true
     }
 ];

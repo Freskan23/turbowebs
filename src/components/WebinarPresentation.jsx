@@ -5,8 +5,7 @@ import { SettingsPanel } from './SettingsPanel';
 import { useBusiness } from '../context/BusinessContext';
 import { PROMPTS } from '../prompts/templates';
 import { improvePromptWithAI, hasAPIKey } from '../utils/openai';
-
-// Componente para la página de introducción
+import { InfoModal, HelpButton } from './HelpSystem';
 const IntroSlide = ({ slide, onStart }) => {
     return (
         <div style={{
@@ -91,6 +90,7 @@ const IntroSlide = ({ slide, onStart }) => {
 const DataInputSlide = ({ slide, onNext }) => {
     const { businessData, updateBusinessData } = useBusiness();
     const [localData, setLocalData] = useState({});
+    const [isInfoOpen, setIsInfoOpen] = useState(false);
 
     useEffect(() => {
         const initial = {};
@@ -105,9 +105,12 @@ const DataInputSlide = ({ slide, onNext }) => {
         updateBusinessData({ [key]: value });
     };
 
-    const hasReport = localData.manusReport?.trim().length > 100;
-    const hasCategoria = localData.categoria?.trim().length > 0;
-    const isComplete = hasReport && hasCategoria;
+    const isComplete = (slide.fields || []).every(field => {
+        if (!field.required) return true;
+        const val = localData[field.key];
+        if (field.key === 'manusReport') return (val?.trim()?.length || 0) > 100;
+        return (val?.trim()?.length || 0) > 0;
+    });
 
     return (
         <div style={{
@@ -122,7 +125,7 @@ const DataInputSlide = ({ slide, onNext }) => {
             overflow: 'hidden'
         }}>
             {/* Header */}
-            <div style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
+            <div style={{ marginBottom: '1.5rem', textAlign: 'center', position: 'relative' }}>
                 <div style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -149,7 +152,30 @@ const DataInputSlide = ({ slide, onNext }) => {
                 <p style={{ fontSize: '1.1rem', color: '#888', margin: 0 }}>
                     {slide.subtitle}
                 </p>
+
+                <HelpButton
+                    onClick={() => setIsInfoOpen(true)}
+                    style={{
+                        position: 'absolute',
+                        right: 0,
+                        top: '50%',
+                        transform: 'translateY(-50%)'
+                    }}
+                />
             </div>
+
+            <InfoModal
+                isOpen={isInfoOpen}
+                onClose={() => setIsInfoOpen(false)}
+                title={`¿Por qué el ${slide.title}?`}
+                content={
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <p><strong>¿Qué buscamos?</strong> {slide.info?.why || "Recopilar datos fundamentales para que Manus pueda realizar un análisis preciso de la competencia."}</p>
+                        <p><strong>¿Qué conseguiremos?</strong> {slide.info?.goal || "Una base sólida de datos que alimentará todos los prompts siguientes, asegurando que el contenido generado sea relevante y profesional."}</p>
+                        {slide.info?.tip && <p style={{ color: '#10b981' }}><strong>Tip:</strong> {slide.info.tip}</p>}
+                    </div>
+                }
+            />
 
             {/* Descripción */}
             <div style={{
@@ -172,7 +198,7 @@ const DataInputSlide = ({ slide, onNext }) => {
                 gap: '1rem',
                 marginBottom: '1.5rem'
             }}>
-                {slide.instructions.map((instruction, idx) => (
+                {Array.isArray(slide.instructions) && slide.instructions.map((instruction, idx) => (
                     <div key={idx} style={{
                         display: 'flex',
                         alignItems: 'flex-start',
@@ -205,120 +231,123 @@ const DataInputSlide = ({ slide, onNext }) => {
             </div>
 
             {/* Campos de entrada */}
-            <div style={{ display: 'flex', gap: '1rem', flex: 1, overflow: 'hidden' }}>
-                {/* Textarea grande para el reporte */}
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    <label style={{
-                        fontSize: '0.85rem',
-                        color: '#888',
-                        display: 'block',
-                        marginBottom: '0.5rem'
+            <div style={{ display: 'flex', gap: '1.5rem', flex: 1, overflow: 'hidden' }}>
+                {slide.fields?.map((field, idx) => (
+                    <div key={field.key} style={{
+                        flex: field.large ? 2 : 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        minWidth: field.large ? '500px' : '250px'
                     }}>
-                        {slide.fields[0].label} <span style={{ color: '#ef4444' }}>*</span>
-                    </label>
-                    <textarea
-                        value={localData.manusReport || ''}
-                        onChange={(e) => handleFieldChange('manusReport', e.target.value)}
-                        placeholder={slide.fields[0].placeholder}
-                        style={{
-                            flex: 1,
-                            width: '100%',
-                            padding: '1rem',
-                            backgroundColor: '#0f0f1a',
-                            border: hasReport ? '2px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
-                            borderRadius: '0.75rem',
-                            color: 'white',
-                            fontSize: '0.9rem',
-                            resize: 'none',
-                            outline: 'none',
-                            boxSizing: 'border-box',
-                            lineHeight: 1.5
-                        }}
-                    />
-                    {hasReport && (
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.5rem',
-                            marginTop: '0.5rem',
-                            color: '#10b981',
-                            fontSize: '0.8rem'
+                        <label style={{
+                            fontSize: '0.85rem',
+                            color: '#888',
+                            display: 'block',
+                            marginBottom: '0.5rem'
                         }}>
-                            <CheckCircle size={14} />
-                            Reporte cargado ({localData.manusReport.length} caracteres)
-                        </div>
-                    )}
-                </div>
+                            {field.label} {field.required && <span style={{ color: '#ef4444' }}>*</span>}
+                        </label>
 
-                {/* Campo de categoría */}
-                <div style={{ width: '250px', display: 'flex', flexDirection: 'column' }}>
-                    <label style={{
-                        fontSize: '0.85rem',
-                        color: '#888',
-                        display: 'block',
-                        marginBottom: '0.5rem'
-                    }}>
-                        {slide.fields[1].label} <span style={{ color: '#ef4444' }}>*</span>
-                    </label>
-                    <input
-                        type="text"
-                        value={localData.categoria || ''}
-                        onChange={(e) => handleFieldChange('categoria', e.target.value)}
-                        placeholder={slide.fields[1].placeholder}
-                        style={{
-                            width: '100%',
-                            padding: '0.75rem 1rem',
-                            backgroundColor: '#0f0f1a',
-                            border: hasCategoria ? '2px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
-                            borderRadius: '0.75rem',
-                            color: 'white',
-                            fontSize: '0.9rem',
-                            outline: 'none',
-                            boxSizing: 'border-box'
-                        }}
-                    />
+                        {field.type === 'textarea' ? (
+                            <textarea
+                                value={localData[field.key] || ''}
+                                onChange={(e) => handleFieldChange(field.key, e.target.value)}
+                                placeholder={field.placeholder}
+                                style={{
+                                    flex: 1,
+                                    width: '100%',
+                                    padding: '1rem',
+                                    backgroundColor: '#0f0f1a',
+                                    border: ((localData[field.key]?.trim()?.length || 0) > (field.key === 'manusReport' ? 100 : 0)) ? '2px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
+                                    borderRadius: '0.75rem',
+                                    color: 'white',
+                                    fontSize: '0.9rem',
+                                    resize: 'none',
+                                    outline: 'none',
+                                    boxSizing: 'border-box',
+                                    lineHeight: 1.5
+                                }}
+                            />
+                        ) : (
+                            <input
+                                type="text"
+                                value={localData[field.key] || ''}
+                                onChange={(e) => handleFieldChange(field.key, e.target.value)}
+                                placeholder={field.placeholder}
+                                style={{
+                                    width: '100%',
+                                    padding: '0.75rem 1rem',
+                                    backgroundColor: '#0f0f1a',
+                                    border: ((localData[field.key]?.trim()?.length || 0) > 0) ? '2px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
+                                    borderRadius: '0.75rem',
+                                    color: 'white',
+                                    fontSize: '0.9rem',
+                                    outline: 'none',
+                                    boxSizing: 'border-box'
+                                }}
+                            />
+                        )}
 
-                    {/* Output hint */}
-                    <div style={{
-                        marginTop: '1.5rem',
-                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                        border: '1px solid rgba(16, 185, 129, 0.3)',
-                        borderRadius: '0.75rem',
-                        padding: '1rem'
-                    }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                            <FileText size={16} style={{ color: '#10b981' }} />
-                            <span style={{ color: '#10b981', fontWeight: 'bold', fontSize: '0.8rem' }}>Importante</span>
-                        </div>
-                        <p style={{ margin: 0, color: '#6ee7b7', fontSize: '0.8rem', lineHeight: 1.5 }}>
-                            {slide.outputHint}
-                        </p>
+                        {field.key === 'manusReport' && (localData.manusReport?.trim()?.length || 0) > 100 && (
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                marginTop: '0.5rem',
+                                color: '#10b981',
+                                fontSize: '0.8rem'
+                            }}>
+                                <CheckCircle size={14} />
+                                Reporte cargado ({localData.manusReport.length} caracteres)
+                            </div>
+                        )}
+
+                        {idx === slide.fields.length - 1 && (
+                            <>
+                                {/* Output hint */}
+                                <div style={{
+                                    marginTop: '1.5rem',
+                                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                    border: '1px solid rgba(16, 185, 129, 0.3)',
+                                    borderRadius: '0.75rem',
+                                    padding: '1rem'
+                                }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                                        <FileText size={16} style={{ color: '#10b981' }} />
+                                        <span style={{ color: '#10b981', fontWeight: 'bold', fontSize: '0.8rem' }}>Importante</span>
+                                    </div>
+                                    <p style={{ margin: 0, color: '#6ee7b7', fontSize: '0.8rem', lineHeight: 1.5 }}>
+                                        {slide.outputHint}
+                                    </p>
+                                </div>
+
+                                {/* Botón continuar */}
+                                <button
+                                    onClick={onNext}
+                                    disabled={!isComplete}
+                                    style={{
+                                        marginTop: 'auto',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: '0.5rem',
+                                        padding: '1rem',
+                                        borderRadius: '0.75rem',
+                                        border: 'none',
+                                        backgroundColor: isComplete ? '#6366f1' : '#333',
+                                        color: 'white',
+                                        fontSize: '1rem',
+                                        fontWeight: 'bold',
+                                        cursor: isComplete ? 'pointer' : 'not-allowed'
+                                    }}
+                                >
+                                    Continuar
+                                    <ChevronRight size={18} />
+                                </button>
+                            </>
+                        )}
                     </div>
-
-                    {/* Botón continuar */}
-                    <button
-                        onClick={onNext}
-                        disabled={!isComplete}
-                        style={{
-                            marginTop: 'auto',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '0.5rem',
-                            padding: '1rem',
-                            borderRadius: '0.75rem',
-                            border: 'none',
-                            backgroundColor: isComplete ? '#6366f1' : '#333',
-                            color: 'white',
-                            fontSize: '1rem',
-                            fontWeight: 'bold',
-                            cursor: isComplete ? 'pointer' : 'not-allowed'
-                        }}
-                    >
-                        Continuar
-                        <ChevronRight size={18} />
-                    </button>
-                </div>
+                ))}
             </div>
         </div>
     );
@@ -331,6 +360,7 @@ const PromptSlide = ({ slide }) => {
     const [copied, setCopied] = useState(false);
     const [isImproving, setIsImproving] = useState(false);
     const [improvedPrompt, setImprovedPrompt] = useState(null);
+    const [isInfoOpen, setIsInfoOpen] = useState(false);
 
     // Inicializar datos locales desde businessData
     useEffect(() => {
@@ -351,13 +381,25 @@ const PromptSlide = ({ slide }) => {
     };
 
     const completion = calculateCompletion();
-    const hasManusReport = businessData.manusReport?.trim().length > 100;
+    const hasManusReport = (businessData.manusReport?.trim()?.length || 0) > 100;
 
     // Manejar cambios en campos
     const handleFieldChange = (key, value) => {
         setLocalData(prev => ({ ...prev, [key]: value }));
         updateBusinessData({ [key]: value });
     };
+
+    // Manejar respuesta de Manus
+    const handleManusAnswerChange = (value) => {
+        updateBusinessData({
+            manusAnswers: {
+                ...businessData.manusAnswers,
+                [slide.id]: value
+            }
+        });
+    };
+
+    const currentManusAnswer = businessData.manusAnswers?.[slide.id] || '';
 
     // Generar prompt con variables reemplazadas
     const getProcessedPrompt = () => {
@@ -399,6 +441,13 @@ const PromptSlide = ({ slide }) => {
         }
     };
 
+    const slideObj = {
+        objective: 'Objetivo no definido',
+        benefits: [],
+        useCase: 'Caso de uso no definido',
+        ...slide
+    };
+
     return (
         <div style={{
             display: 'flex',
@@ -426,16 +475,16 @@ const PromptSlide = ({ slide }) => {
                             gap: '0.5rem',
                             padding: '0.25rem 0.75rem',
                             borderRadius: '9999px',
-                            backgroundColor: `${slide.categoryColor}20`,
-                            color: slide.categoryColor,
+                            backgroundColor: `${slideObj.categoryColor}20`,
+                            color: slideObj.categoryColor,
                             fontSize: '0.75rem',
                             fontWeight: 'bold'
                         }}>
-                            <span>{slide.icon}</span>
-                            {slide.category}
+                            <span>{slideObj.icon}</span>
+                            {slideObj.category}
                         </div>
                         {/* Indicador de Manus Report */}
-                        {slide.usesManusReport && (
+                        {slideObj.usesManusReport && (
                             <div style={{
                                 display: 'inline-flex',
                                 alignItems: 'center',
@@ -484,10 +533,10 @@ const PromptSlide = ({ slide }) => {
                     margin: '0 0 0.25rem 0',
                     color: 'white'
                 }}>
-                    {slide.title}
+                    {slideObj.title}
                 </h2>
                 <p style={{ fontSize: '1rem', color: '#666', margin: 0 }}>
-                    {slide.subtitle}
+                    {slideObj.subtitle}
                 </p>
             </div>
 
@@ -511,42 +560,44 @@ const PromptSlide = ({ slide }) => {
                         <h3 style={{
                             fontSize: '0.7rem',
                             fontWeight: 'bold',
-                            color: slide.categoryColor,
+                            color: slideObj.categoryColor,
                             margin: '0 0 0.5rem 0',
                             textTransform: 'uppercase'
                         }}>
                             Objetivo
                         </h3>
                         <p style={{ margin: 0, color: '#aaa', fontSize: '0.85rem', lineHeight: 1.5 }}>
-                            {slide.objective}
+                            {slideObj.objective}
                         </p>
                     </div>
 
                     {/* Beneficios */}
-                    <div style={{
-                        backgroundColor: 'rgba(255,255,255,0.03)',
-                        border: '1px solid rgba(255,255,255,0.08)',
-                        borderRadius: '0.75rem',
-                        padding: '1rem'
-                    }}>
-                        <h3 style={{
-                            fontSize: '0.7rem',
-                            fontWeight: 'bold',
-                            color: '#10b981',
-                            margin: '0 0 0.5rem 0',
-                            textTransform: 'uppercase'
+                    {slideObj.benefits && slideObj.benefits.length > 0 && (
+                        <div style={{
+                            backgroundColor: 'rgba(255,255,255,0.03)',
+                            border: '1px solid rgba(255,255,255,0.08)',
+                            borderRadius: '0.75rem',
+                            padding: '1rem'
                         }}>
-                            Qué conseguirás
-                        </h3>
-                        <ul style={{ margin: 0, paddingLeft: '1.25rem', color: '#aaa', fontSize: '0.8rem', lineHeight: 1.6 }}>
-                            {slide.benefits?.map((b, i) => (
-                                <li key={i} style={{ marginBottom: '0.25rem' }}>{b}</li>
-                            ))}
-                        </ul>
-                    </div>
+                            <h3 style={{
+                                fontSize: '0.7rem',
+                                fontWeight: 'bold',
+                                color: '#10b981',
+                                margin: '0 0 0.5rem 0',
+                                textTransform: 'uppercase'
+                            }}>
+                                Qué conseguirás
+                            </h3>
+                            <ul style={{ margin: 0, paddingLeft: '1.25rem', color: '#aaa', fontSize: '0.8rem', lineHeight: 1.6 }}>
+                                {slideObj.benefits.map((b, i) => (
+                                    <li key={i} style={{ marginBottom: '0.25rem' }}>{b}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
 
                     {/* Campos de entrada */}
-                    {slide.fields && slide.fields.length > 0 && (
+                    {slideObj.fields && slideObj.fields.length > 0 && (
                         <div style={{
                             backgroundColor: 'rgba(99, 102, 241, 0.05)',
                             border: '1px solid rgba(99, 102, 241, 0.2)',
@@ -563,7 +614,7 @@ const PromptSlide = ({ slide }) => {
                                 Completa estos datos
                             </h3>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                {slide.fields.map(field => (
+                                {slideObj.fields.map(field => (
                                     <div key={field.key}>
                                         <label style={{
                                             fontSize: '0.75rem',
@@ -596,26 +647,106 @@ const PromptSlide = ({ slide }) => {
                         </div>
                     )}
 
-                    {/* Cuándo usar */}
-                    <div style={{
-                        backgroundColor: 'rgba(245, 158, 11, 0.05)',
-                        border: '1px solid rgba(245, 158, 11, 0.2)',
-                        borderRadius: '0.75rem',
-                        padding: '1rem'
-                    }}>
-                        <h3 style={{
-                            fontSize: '0.7rem',
-                            fontWeight: 'bold',
-                            color: '#f59e0b',
-                            margin: '0 0 0.5rem 0',
-                            textTransform: 'uppercase'
+                    {/* Respuesta de Manus */}
+                    {!slideObj.usesManusReport ? (
+                        <div style={{
+                            backgroundColor: 'rgba(16, 185, 129, 0.05)',
+                            border: '1px solid rgba(16, 185, 129, 0.2)',
+                            borderRadius: '0.75rem',
+                            padding: '1rem',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            flex: 1,
+                            minHeight: '200px'
                         }}>
-                            Cuándo usarlo
-                        </h3>
-                        <p style={{ margin: 0, color: '#aaa', fontSize: '0.8rem', lineHeight: 1.5 }}>
-                            {slide.useCase}
-                        </p>
-                    </div>
+                            <h3 style={{
+                                fontSize: '0.7rem',
+                                fontWeight: 'bold',
+                                color: '#10b981',
+                                margin: '0 0 0.5rem 0',
+                                textTransform: 'uppercase',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.4rem'
+                            }}>
+                                <CheckCircle size={14} />
+                                Respuesta de Manus para este paso
+                            </h3>
+                            <textarea
+                                value={currentManusAnswer}
+                                onChange={(e) => handleManusAnswerChange(e.target.value)}
+                                placeholder="Pega aquí la respuesta que te dio Manus después de ejecutar el prompt..."
+                                style={{
+                                    flex: 1,
+                                    width: '100%',
+                                    padding: '0.75rem',
+                                    backgroundColor: '#0a0a0f',
+                                    border: '1px solid rgba(255,255,255,0.05)',
+                                    borderRadius: '0.5rem',
+                                    color: '#ccc',
+                                    fontSize: '0.8rem',
+                                    resize: 'none',
+                                    outline: 'none',
+                                    fontFamily: 'monospace'
+                                }}
+                            />
+                        </div>
+                    ) : (
+                        <div style={{
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            border: '1px solid #10b981',
+                            borderRadius: '0.75rem',
+                            padding: '1rem',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            textAlign: 'center',
+                            gap: '0.75rem'
+                        }}>
+                            <div style={{
+                                width: '40px',
+                                height: '40px',
+                                borderRadius: '50%',
+                                backgroundColor: '#10b981',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white'
+                            }}>
+                                <CheckCircle size={24} />
+                            </div>
+                            <div>
+                                <h4 style={{ margin: '0 0 0.25rem 0', color: '#10b981', fontSize: '0.9rem' }}>Reporte Principal Vinculado</h4>
+                                <p style={{ margin: 0, color: '#aaa', fontSize: '0.75rem' }}>
+                                    Este paso utiliza automáticamente el análisis de Manus que pegaste en el Paso 2.
+                                </p>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Cuándo usar */}
+                    {slideObj.useCase && (
+                        <div style={{
+                            backgroundColor: 'rgba(245, 158, 11, 0.05)',
+                            border: '1px solid rgba(245, 158, 11, 0.2)',
+                            borderRadius: '0.75rem',
+                            padding: '1rem'
+                        }}>
+                            <h3 style={{
+                                fontSize: '0.7rem',
+                                fontWeight: 'bold',
+                                color: '#f59e0b',
+                                margin: '0 0 0.5rem 0',
+                                textTransform: 'uppercase'
+                            }}>
+                                Cuándo usarlo
+                            </h3>
+                            <p style={{ margin: 0, color: '#aaa', fontSize: '0.8rem', lineHeight: 1.5 }}>
+                                {slideObj.useCase}
+                            </p>
+                        </div>
+                    )}
                 </div>
 
                 {/* Right Column - Prompt */}
@@ -638,7 +769,7 @@ const PromptSlide = ({ slide }) => {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                             <Sparkles size={16} style={{ color: '#6366f1' }} />
                             <h3 style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'white', margin: 0 }}>
-                                Prompt Maestro
+                                Prompt Maestro (para Manus)
                             </h3>
                             {improvedPrompt && (
                                 <span style={{
@@ -800,11 +931,13 @@ export const WebinarPresentation = () => {
             {/* Main */}
             <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                 {slide.type === 'intro' ? (
-                    <IntroSlide slide={slide} onStart={goToNext} />
+                    <IntroSlide key={slide.id} slide={slide} onStart={goToNext} />
                 ) : slide.type === 'data-input' ? (
-                    <DataInputSlide slide={slide} onNext={goToNext} />
+                    <DataInputSlide key={slide.id} slide={slide} onNext={goToNext} />
+                ) : slide.type === 'manus-prompt' ? (
+                    <PromptSlide key={slide.id} slide={slide} />
                 ) : (
-                    <PromptSlide slide={slide} />
+                    <PromptSlide key={slide.id} slide={slide} />
                 )}
             </main>
 

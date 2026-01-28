@@ -43,7 +43,8 @@ export const initialBusinessData = {
     seoScope: 'Todos los anteriores (análisis completo)',
     deliveryFormat: 'Un informe consolidado en Markdown/PDF',
     analysisDepth: 'Solo datos técnicos y Local Pack',
-    gbpData: ['Calificación y número de reseñas', 'Horarios y servicios listados']
+    gbpData: ['Calificación y número de reseñas', 'Horarios y servicios listados'],
+    manusAnswers: {} // Respuestas pegadas de Manus por cada slide
 };
 
 export const BusinessProvider = ({ children }) => {
