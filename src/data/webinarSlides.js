@@ -30,7 +30,7 @@ export const WEBINAR_SLIDES = [
         title: 'Prompt para Manus',
         subtitle: 'Copia este prompt y ejecútalo en Manus',
         icon: '🤖',
-        description: 'Primero necesitas que Manus analice la competencia. Copia el prompt de abajo, pégalo en Manus, y cuando termine, pega el resultado en la siguiente página.',
+        description: 'Primero necesitas que Manus analice la competencia. Copia el prompt de abajo para que Manus escrapee los MENÚS de servicios y los BLOGS de los mejores competidores en 7 ciudades.',
         templateKey: 'PROMPT_INICIAL_MANUS',
         fields: [
             {

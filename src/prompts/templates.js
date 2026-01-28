@@ -27,20 +27,13 @@ export const PROMPTS = {
    - Servicios ofrecidos
    - Datos de contacto
 
-2. **Auditoría SEO Técnica de las webs:**
-   - Title tag (longitud y contenido)
-   - Meta description
-   - Estructura H1, H2, H3
-   - Schema markup implementado
-   - Imágenes con alt text
-   - Headers de seguridad
-   - Mobile-friendliness
+2. **Auditoría de Menú y Servicios (Scraping de Web):**
+   - Extrae los elementos del MENÚ DE NAVEGACIÓN principal.
+   - Lista detallada de los SERVICIOS detectados en la web.
+   - Verifica si tienen BLOG o sección de noticias.
+   - Si tienen blog, extrae los TITULARES de los últimos 5-10 posts para entender su estrategia de contenidos.
 
-3. **Análisis de Contenido:**
-   - Secciones que incluyen
-   - Longitud del contenido
-   - FAQs que responden
-   - CTAs utilizados
+3. **Auditoría SEO Técnica de las webs:**
 
 **FORMATO DE ENTREGA:**
 - Tabla comparativa por ciudad
