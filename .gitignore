@@ -32,3 +32,9 @@ firebase-debug.log*
 .gemini/
 .claude/
 backups/
+# CSV files con datos sensibles
+*.csv
+nul
+
+# API Keys y configuraciones sensibles
+# Las API keys se configuran via variables de entorno en Vercel
