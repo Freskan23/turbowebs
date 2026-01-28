@@ -16,10 +16,10 @@ export const WebinarRoadmap = () => {
     const { currentModule, setCurrentModule } = useBusiness();
 
     return (
-        <div className="w-full py-10 px-4 bento-card border-none bg-elevated mb-12">
-            <div className="flex justify-between items-start max-w-4xl mx-auto relative px-4 md-px-12">
+        <div className="w-full bento-card border-none bg-elevated" style={{ padding: '2rem 1.5rem', marginBottom: '2.5rem' }}>
+            <div className="flex justify-between items-start max-w-4xl mx-auto relative" style={{ padding: '0 2rem' }}>
                 {/* Connecting Line */}
-                <div className="absolute top-6 left-12 right-12 h-0-5 bg-white-5 -z-10" />
+                <div style={{ position: 'absolute', top: '1.5rem', left: '4rem', right: '4rem', height: '2px', background: 'rgba(255,255,255,0.05)', zIndex: -1 }} />
 
                 {modules.map((m, index) => {
                     const isActive = currentModule === m.id;

@@ -116,13 +116,42 @@ const App = () => {
                                         <Files size={24} />
                                     </div>
                                     <div>
-                                        <h2 className="text-3xl text-gradient">Prompt Engine</h2>
-                                        <p className="text-xs text-dim mt-1">Sincronización en Tiempo Real</p>
+                                        <h2 className="text-3xl text-gradient">Biblioteca de Prompts Maestros</h2>
+                                        <p className="text-xs text-dim mt-1">Optimizados del análisis de proyectos reales</p>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-1 gap-12">
-                                    <DynamicPromptComposer templateKey="PRELIMINAR_0" />
-                                    <DynamicPromptComposer templateKey="FASE_1" />
+
+                                <div className="grid grid-cols-1 gap-8">
+                                    <div>
+                                        <h3 className="text-sm font-bold text-primary mb-4">🔍 INVESTIGACIÓN Y ANÁLISIS</h3>
+                                        <div className="grid grid-cols-1 gap-6">
+                                            <DynamicPromptComposer templateKey="ANALISIS_COMPETENCIA_LOCAL" />
+                                            <DynamicPromptComposer templateKey="AUDITORIA_SEO_TECNICA" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h3 className="text-sm font-bold text-accent mb-4">⚡ DESARROLLO WEB</h3>
+                                        <div className="grid grid-cols-1 gap-6">
+                                            <DynamicPromptComposer templateKey="CREAR_LOCATION_PAGE" />
+                                            <DynamicPromptComposer templateKey="OPTIMIZAR_WEB_EXISTENTE" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h3 className="text-sm font-bold text-success mb-4">📊 ESTRATEGIA SEO</h3>
+                                        <div className="grid grid-cols-1 gap-6">
+                                            <DynamicPromptComposer templateKey="ESTRATEGIA_BASADA_AUDITORIA" />
+                                            <DynamicPromptComposer templateKey="KEYWORDS_LOCALES" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h3 className="text-sm font-bold text-secondary mb-4">⚙️ AVANZADOS</h3>
+                                        <div className="grid grid-cols-1 gap-6">
+                                            <DynamicPromptComposer templateKey="CREAR_SISTEMA_COMPONENTES" />
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.section>
                         </div>
