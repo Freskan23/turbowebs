@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Settings, Key, Eye, EyeOff, CheckCircle, AlertCircle, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { saveAPIKey, getAPIKey, hasAPIKey } from '../utils/openai';
 
 export const SettingsPanel = ({ isOpen, onClose }) => {
@@ -13,7 +12,8 @@ export const SettingsPanel = ({ isOpen, onClose }) => {
     useEffect(() => {
         if (isOpen) {
             setApiKey(getAPIKey());
-            setSaved(hasAPIKey());
+            setSaved(false);
+            setTestResult(null);
         }
     }, [isOpen]);
 
@@ -59,128 +59,223 @@ export const SettingsPanel = ({ isOpen, onClose }) => {
         setTestResult(null);
     };
 
+    const handleInputChange = (e) => {
+        setApiKey(e.target.value);
+    };
+
     if (!isOpen) return null;
 
     return (
-        <AnimatePresence>
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-                onClick={onClose}
+        <div
+            style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                backdropFilter: 'blur(8px)',
+                zIndex: 9999,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '1rem'
+            }}
+            onClick={onClose}
+        >
+            <div
+                style={{
+                    backgroundColor: '#1a1a2e',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '1.5rem',
+                    padding: '2rem',
+                    maxWidth: '500px',
+                    width: '100%',
+                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                }}
+                onClick={(e) => e.stopPropagation()}
             >
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                    className="bg-bg-card border border-white-10 rounded-3xl p-8 max-w-lg w-full shadow-2xl"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <div className="flex items-center justify-between mb-8">
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 rounded-2xl bg-primary-10 text-primary">
-                                <Settings size={24} />
-                            </div>
-                            <div>
-                                <h2 className="text-2xl font-bold text-white">Configuración</h2>
-                                <p className="text-xs text-dim">API Keys y preferencias</p>
-                            </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        <div style={{
+                            padding: '0.75rem',
+                            borderRadius: '1rem',
+                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            color: '#6366f1'
+                        }}>
+                            <Settings size={24} />
                         </div>
-                        <button
-                            onClick={onClose}
-                            className="p-2 rounded-xl hover:bg-white-5 transition-colors"
+                        <div>
+                            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'white', margin: 0 }}>Configuración</h2>
+                            <p style={{ fontSize: '0.75rem', color: '#666', margin: 0 }}>API Keys y preferencias</p>
+                        </div>
+                    </div>
+                    <button
+                        onClick={onClose}
+                        style={{
+                            padding: '0.5rem',
+                            borderRadius: '0.75rem',
+                            background: 'transparent',
+                            border: 'none',
+                            cursor: 'pointer',
+                            color: '#666'
+                        }}
+                    >
+                        <X size={20} />
+                    </button>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                    <div>
+                        <label style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            fontSize: '0.875rem',
+                            fontWeight: 'bold',
+                            color: 'white',
+                            marginBottom: '0.75rem'
+                        }}>
+                            <Key size={16} style={{ color: '#6366f1' }} />
+                            OpenAI API Key
+                        </label>
+                        <p style={{ fontSize: '0.75rem', color: '#666', marginBottom: '1rem' }}>
+                            Necesaria para la función "Mejorar con AI".
+                            Obtén tu key en <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" style={{ color: '#6366f1' }}>platform.openai.com</a>
+                        </p>
+
+                        <div style={{ position: 'relative' }}>
+                            <input
+                                type={showKey ? 'text' : 'password'}
+                                value={apiKey}
+                                onChange={handleInputChange}
+                                placeholder="sk-proj-..."
+                                autoComplete="off"
+                                style={{
+                                    width: '100%',
+                                    backgroundColor: '#0f0f1a',
+                                    color: 'white',
+                                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                                    borderRadius: '0.75rem',
+                                    padding: '1rem',
+                                    paddingRight: '3rem',
+                                    fontSize: '0.875rem',
+                                    fontFamily: 'monospace',
+                                    outline: 'none',
+                                    boxSizing: 'border-box'
+                                }}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowKey(!showKey)}
+                                style={{
+                                    position: 'absolute',
+                                    right: '1rem',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                    background: 'transparent',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    color: '#666',
+                                    padding: 0
+                                }}
+                            >
+                                {showKey ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
+                        </div>
+                    </div>
+
+                    {testResult && (
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.75rem',
+                                padding: '1rem',
+                                borderRadius: '0.75rem',
+                                backgroundColor: testResult.success ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                                border: `1px solid ${testResult.success ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)'}`,
+                                color: testResult.success ? '#10b981' : '#ef4444'
+                            }}
                         >
-                            <X size={20} className="text-dim" />
+                            {testResult.success ? <CheckCircle size={18} /> : <AlertCircle size={18} />}
+                            <span style={{ fontSize: '0.875rem' }}>{testResult.message}</span>
+                        </div>
+                    )}
+
+                    <div style={{ display: 'flex', gap: '0.75rem' }}>
+                        <button
+                            onClick={handleTest}
+                            disabled={testing || !apiKey.trim()}
+                            style={{
+                                flex: 1,
+                                padding: '0.75rem',
+                                fontSize: '0.875rem',
+                                borderRadius: '0.75rem',
+                                border: '1px solid rgba(255, 255, 255, 0.1)',
+                                backgroundColor: 'transparent',
+                                color: 'white',
+                                cursor: testing || !apiKey.trim() ? 'not-allowed' : 'pointer',
+                                opacity: testing || !apiKey.trim() ? 0.5 : 1
+                            }}
+                        >
+                            {testing ? 'Verificando...' : 'Probar conexión'}
+                        </button>
+                        <button
+                            onClick={handleSave}
+                            disabled={!apiKey.trim()}
+                            style={{
+                                flex: 1,
+                                padding: '0.75rem',
+                                fontSize: '0.875rem',
+                                borderRadius: '0.75rem',
+                                border: 'none',
+                                backgroundColor: saved ? '#10b981' : '#6366f1',
+                                color: 'white',
+                                cursor: !apiKey.trim() ? 'not-allowed' : 'pointer',
+                                opacity: !apiKey.trim() ? 0.5 : 1,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '0.5rem'
+                            }}
+                        >
+                            {saved ? (
+                                <>
+                                    <CheckCircle size={16} />
+                                    Guardado
+                                </>
+                            ) : (
+                                'Guardar'
+                            )}
                         </button>
                     </div>
 
-                    <div className="space-y-6">
-                        <div>
-                            <label className="flex items-center gap-2 text-sm font-bold text-white mb-3">
-                                <Key size={16} className="text-primary" />
-                                OpenAI API Key
-                            </label>
-                            <p className="text-xs text-dim mb-4">
-                                Necesaria para la función "Mejorar con AI".
-                                Obtén tu key en <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">platform.openai.com</a>
-                            </p>
+                    {hasAPIKey() && (
+                        <button
+                            onClick={handleClear}
+                            style={{
+                                width: '100%',
+                                fontSize: '0.75rem',
+                                color: '#666',
+                                background: 'transparent',
+                                border: 'none',
+                                cursor: 'pointer',
+                                padding: '0.5rem'
+                            }}
+                        >
+                            Eliminar API key guardada
+                        </button>
+                    )}
 
-                            <div className="relative">
-                                <input
-                                    type={showKey ? 'text' : 'password'}
-                                    value={apiKey}
-                                    onChange={(e) => setApiKey(e.target.value)}
-                                    placeholder="sk-proj-..."
-                                    className="w-full bg-bg-dark text-white border border-white-10 rounded-xl p-4 pr-12 text-sm font-mono placeholder-dim focus:outline-none focus:border-primary transition-colors"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowKey(!showKey)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-dim hover:text-white transition-colors"
-                                >
-                                    {showKey ? <EyeOff size={18} /> : <Eye size={18} />}
-                                </button>
-                            </div>
-                        </div>
-
-                        {testResult && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className={`flex items-center gap-3 p-4 rounded-xl ${
-                                    testResult.success
-                                        ? 'bg-success/10 border border-success/20 text-success'
-                                        : 'bg-error/10 border border-error/20 text-error'
-                                }`}
-                            >
-                                {testResult.success ? <CheckCircle size={18} /> : <AlertCircle size={18} />}
-                                <span className="text-sm">{testResult.message}</span>
-                            </motion.div>
-                        )}
-
-                        <div className="flex gap-3">
-                            <button
-                                onClick={handleTest}
-                                disabled={testing || !apiKey.trim()}
-                                className="flex-1 btn-secondary py-3 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                {testing ? 'Verificando...' : 'Probar conexión'}
-                            </button>
-                            <button
-                                onClick={handleSave}
-                                disabled={!apiKey.trim()}
-                                className="flex-1 btn-primary py-3 text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                            >
-                                {saved ? (
-                                    <>
-                                        <CheckCircle size={16} />
-                                        Guardado
-                                    </>
-                                ) : (
-                                    'Guardar'
-                                )}
-                            </button>
-                        </div>
-
-                        {hasAPIKey() && (
-                            <button
-                                onClick={handleClear}
-                                className="w-full text-xs text-dim hover:text-error transition-colors py-2"
-                            >
-                                Eliminar API key guardada
-                            </button>
-                        )}
-
-                        <div className="pt-4 border-t border-white-5">
-                            <p className="text-xs text-dim">
-                                Tu API key se guarda localmente en tu navegador y nunca se envía a nuestros servidores.
-                                Solo se usa para comunicarse directamente con OpenAI.
-                            </p>
-                        </div>
+                    <div style={{ paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                        <p style={{ fontSize: '0.75rem', color: '#666', margin: 0 }}>
+                            Tu API key se guarda localmente en tu navegador y nunca se envía a nuestros servidores.
+                            Solo se usa para comunicarse directamente con OpenAI.
+                        </p>
                     </div>
-                </motion.div>
-            </motion.div>
-        </AnimatePresence>
+                </div>
+            </div>
+        </div>
     );
 };
