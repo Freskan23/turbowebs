@@ -3,7 +3,26 @@
 
 export const WEBINAR_SLIDES = [
     {
+        id: 0,
+        type: 'intro',
+        category: 'BIENVENIDA',
+        categoryColor: '#6366f1',
+        title: 'TurboWebs 2026',
+        subtitle: 'Domina el SEO Local con IA',
+        author: 'Por Edu Laborda',
+        agenda: [
+            { icon: '🔍', title: 'Análisis de Competencia', desc: 'Espía a los líderes del Local Pack' },
+            { icon: '🔧', title: 'Auditoría SEO Técnica', desc: 'Diagnóstico completo de tu web' },
+            { icon: '⚡', title: 'Crear Location Pages', desc: 'Páginas optimizadas desde cero' },
+            { icon: '🎨', title: 'Optimizar Web Existente', desc: 'Mejora sin perder tu identidad' },
+            { icon: '📊', title: 'Estrategia SEO', desc: 'Plan de acción con KPIs' },
+            { icon: '🔑', title: 'Keywords Locales', desc: 'Encuentra oportunidades ocultas' },
+            { icon: '⚙️', title: 'Sistema de Componentes', desc: 'Escala con templates reutilizables' }
+        ]
+    },
+    {
         id: 1,
+        type: 'prompt',
         category: 'INVESTIGACIÓN',
         categoryColor: '#6366f1',
         title: 'Análisis de Competencia Local',
@@ -21,6 +40,7 @@ export const WEBINAR_SLIDES = [
     },
     {
         id: 2,
+        type: 'prompt',
         category: 'INVESTIGACIÓN',
         categoryColor: '#6366f1',
         title: 'Auditoría SEO Técnica',
@@ -38,6 +58,7 @@ export const WEBINAR_SLIDES = [
     },
     {
         id: 3,
+        type: 'prompt',
         category: 'DESARROLLO',
         categoryColor: '#10b981',
         title: 'Crear Location Page',
@@ -55,6 +76,7 @@ export const WEBINAR_SLIDES = [
     },
     {
         id: 4,
+        type: 'prompt',
         category: 'DESARROLLO',
         categoryColor: '#10b981',
         title: 'Optimizar Web Existente',
@@ -72,6 +94,7 @@ export const WEBINAR_SLIDES = [
     },
     {
         id: 5,
+        type: 'prompt',
         category: 'ESTRATEGIA',
         categoryColor: '#f59e0b',
         title: 'Estrategia SEO Completa',
@@ -89,6 +112,7 @@ export const WEBINAR_SLIDES = [
     },
     {
         id: 6,
+        type: 'prompt',
         category: 'ESTRATEGIA',
         categoryColor: '#f59e0b',
         title: 'Keywords Locales',
@@ -106,6 +130,7 @@ export const WEBINAR_SLIDES = [
     },
     {
         id: 7,
+        type: 'prompt',
         category: 'AVANZADO',
         categoryColor: '#ec4899',
         title: 'Sistema de Componentes',
