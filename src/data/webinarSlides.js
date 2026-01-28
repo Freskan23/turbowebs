@@ -1,5 +1,5 @@
 // Configuración de las páginas/slides del webinar
-// Cada slide tiene: título, objetivo, descripción, y el templateKey del prompt
+// Cada slide tiene campos requeridos específicos para su prompt
 
 export const WEBINAR_SLIDES = [
     {
@@ -36,7 +36,19 @@ export const WEBINAR_SLIDES = [
         ],
         useCase: 'Ideal para iniciar cualquier proyecto de SEO local. Es el primer paso antes de crear o mejorar tu web.',
         templateKey: 'ANALISIS_COMPETENCIA_LOCAL',
-        icon: '🔍'
+        icon: '🔍',
+        // Campos requeridos para este prompt - ES EL PRIMERO, solo necesita categoría
+        fields: [
+            {
+                key: 'categoria',
+                label: 'Categoría / Sector',
+                placeholder: 'Ej: Cerrajeros, Fontaneros, Dentistas...',
+                type: 'text',
+                required: true
+            }
+        ],
+        // Output: Este prompt genera datos que alimentan los siguientes
+        outputHint: 'El resultado de este análisis lo usarás en los siguientes prompts para mejorarlos con IA.'
     },
     {
         id: 2,
@@ -54,7 +66,39 @@ export const WEBINAR_SLIDES = [
         ],
         useCase: 'Fundamental antes de cualquier optimización. Te da el mapa de lo que hay que arreglar.',
         templateKey: 'AUDITORIA_SEO_TECNICA',
-        icon: '🔧'
+        icon: '🔧',
+        fields: [
+            {
+                key: 'url',
+                label: 'URL de tu web',
+                placeholder: 'https://tu-web.com',
+                type: 'url',
+                required: true
+            },
+            {
+                key: 'categoria',
+                label: 'Sector',
+                placeholder: 'Ej: Cerrajeros',
+                type: 'text',
+                required: true
+            },
+            {
+                key: 'ciudad',
+                label: 'Ciudad principal',
+                placeholder: 'Ej: Madrid',
+                type: 'text',
+                required: true
+            }
+        ],
+        // Para mejorar con IA, pueden pegar el resultado del análisis anterior
+        aiEnhanceFields: [
+            {
+                key: 'competitorAnalysis',
+                label: 'Pega aquí el resultado del Análisis de Competencia (Prompt 1)',
+                placeholder: 'Copia y pega el informe generado por Manus del análisis de competencia...',
+                type: 'textarea'
+            }
+        ]
     },
     {
         id: 3,
@@ -72,7 +116,51 @@ export const WEBINAR_SLIDES = [
         ],
         useCase: 'Cuando necesitas crear una página nueva para una ubicación específica de tu negocio.',
         templateKey: 'CREAR_LOCATION_PAGE',
-        icon: '⚡'
+        icon: '⚡',
+        fields: [
+            {
+                key: 'nombre',
+                label: 'Nombre del negocio',
+                placeholder: 'Ej: Cerrajeros Express Madrid',
+                type: 'text',
+                required: true
+            },
+            {
+                key: 'categoria',
+                label: 'Servicio principal',
+                placeholder: 'Ej: Cerrajería',
+                type: 'text',
+                required: true
+            },
+            {
+                key: 'ciudad',
+                label: 'Ciudad',
+                placeholder: 'Ej: Madrid',
+                type: 'text',
+                required: true
+            },
+            {
+                key: 'barriosZonas',
+                label: 'Barrios / Zonas de servicio',
+                placeholder: 'Ej: Centro, Chamberí, Salamanca, Retiro...',
+                type: 'text',
+                required: false
+            }
+        ],
+        aiEnhanceFields: [
+            {
+                key: 'competitorAnalysis',
+                label: 'Pega el Análisis de Competencia',
+                placeholder: 'El informe del Prompt 1 ayudará a crear una página con la estructura ganadora...',
+                type: 'textarea'
+            },
+            {
+                key: 'auditResults',
+                label: 'Pega la Auditoría SEO (opcional)',
+                placeholder: 'Si ya tienes una web, pega los hallazgos para evitar los mismos errores...',
+                type: 'textarea'
+            }
+        ]
     },
     {
         id: 4,
@@ -90,7 +178,30 @@ export const WEBINAR_SLIDES = [
         ],
         useCase: 'Cuando ya tienes una web pero no está rindiendo como debería en búsquedas locales.',
         templateKey: 'OPTIMIZAR_WEB_EXISTENTE',
-        icon: '🎨'
+        icon: '🎨',
+        fields: [
+            {
+                key: 'url',
+                label: 'URL de tu web actual',
+                placeholder: 'https://tu-web.com',
+                type: 'url',
+                required: true
+            }
+        ],
+        aiEnhanceFields: [
+            {
+                key: 'competitorAnalysis',
+                label: 'Pega el Análisis de Competencia (IMPORTANTE)',
+                placeholder: 'Este es el más importante - contiene las mejores prácticas a aplicar...',
+                type: 'textarea'
+            },
+            {
+                key: 'auditResults',
+                label: 'Pega la Auditoría SEO',
+                placeholder: 'Los problemas detectados que hay que corregir...',
+                type: 'textarea'
+            }
+        ]
     },
     {
         id: 5,
@@ -108,7 +219,37 @@ export const WEBINAR_SLIDES = [
         ],
         useCase: 'Para tener un plan a 3-6 meses con acciones concretas y medibles.',
         templateKey: 'ESTRATEGIA_BASADA_AUDITORIA',
-        icon: '📊'
+        icon: '📊',
+        fields: [
+            {
+                key: 'nombre',
+                label: 'Nombre del negocio',
+                placeholder: 'Ej: Cerrajeros Express',
+                type: 'text',
+                required: true
+            },
+            {
+                key: 'ciudad',
+                label: 'Ciudad principal',
+                placeholder: 'Ej: Madrid',
+                type: 'text',
+                required: true
+            }
+        ],
+        aiEnhanceFields: [
+            {
+                key: 'competitorAnalysis',
+                label: 'Pega el Análisis de Competencia',
+                placeholder: 'La base de la estrategia...',
+                type: 'textarea'
+            },
+            {
+                key: 'auditResults',
+                label: 'Pega la Auditoría SEO',
+                placeholder: 'Para priorizar las mejoras técnicas...',
+                type: 'textarea'
+            }
+        ]
     },
     {
         id: 6,
@@ -126,7 +267,38 @@ export const WEBINAR_SLIDES = [
         ],
         useCase: 'Para saber exactamente qué busca tu cliente potencial y cómo lo busca.',
         templateKey: 'KEYWORDS_LOCALES',
-        icon: '🔑'
+        icon: '🔑',
+        fields: [
+            {
+                key: 'categoria',
+                label: 'Sector / Industria',
+                placeholder: 'Ej: Cerrajería',
+                type: 'text',
+                required: true
+            },
+            {
+                key: 'ciudad',
+                label: 'Ciudad principal',
+                placeholder: 'Ej: Madrid',
+                type: 'text',
+                required: true
+            },
+            {
+                key: 'barriosZonas',
+                label: 'Barrios / Zonas',
+                placeholder: 'Ej: Centro, Chamberí, Salamanca...',
+                type: 'text',
+                required: false
+            }
+        ],
+        aiEnhanceFields: [
+            {
+                key: 'competitorAnalysis',
+                label: 'Pega el Análisis de Competencia',
+                placeholder: 'Ayuda a identificar keywords que usan los líderes...',
+                type: 'textarea'
+            }
+        ]
     },
     {
         id: 7,
@@ -144,6 +316,15 @@ export const WEBINAR_SLIDES = [
         ],
         useCase: 'Cuando gestionas múltiples ubicaciones o clientes y necesitas escalar.',
         templateKey: 'CREAR_SISTEMA_COMPONENTES',
-        icon: '⚙️'
+        icon: '⚙️',
+        fields: [],
+        aiEnhanceFields: [
+            {
+                key: 'competitorAnalysis',
+                label: 'Pega el Análisis de Competencia',
+                placeholder: 'Para crear componentes basados en patrones ganadores...',
+                type: 'textarea'
+            }
+        ]
     }
 ];
