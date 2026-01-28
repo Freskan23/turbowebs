@@ -1,5 +1,6 @@
 // Configuración de las páginas/slides del webinar
 // Cada slide tiene campos requeridos específicos para su prompt
+// FLUJO: Manus hace el análisis → Usuario pega el reporte → Prompts trabajan con esos datos
 
 export const WEBINAR_SLIDES = [
     {
@@ -11,7 +12,7 @@ export const WEBINAR_SLIDES = [
         subtitle: 'Domina el SEO Local con IA',
         author: 'Por Edu Laborda',
         agenda: [
-            { icon: '🔍', title: 'Análisis de Competencia', desc: 'Espía a los líderes del Local Pack' },
+            { icon: '📋', title: 'Reporte de Manus', desc: 'Pega tu análisis de competencia' },
             { icon: '🔧', title: 'Auditoría SEO Técnica', desc: 'Diagnóstico de webs competidoras' },
             { icon: '⚡', title: 'Crear Location Pages', desc: 'Páginas optimizadas desde cero' },
             { icon: '🎨', title: 'Diseño y Referencias', desc: 'Define el estilo visual' },
@@ -22,31 +23,37 @@ export const WEBINAR_SLIDES = [
     },
     {
         id: 1,
-        type: 'prompt',
-        category: 'INVESTIGACIÓN',
-        categoryColor: '#6366f1',
-        title: 'Análisis de Competencia Local',
-        subtitle: 'Descubre qué hacen los mejores del Local Pack',
-        objective: 'Analizar las webs que dominan el Top 3 del Local Pack en 7 ciudades europeas para extraer patrones ganadores.',
-        benefits: [
-            'Identificar la estructura de contenido que Google premia',
-            'Descubrir los elementos comunes en webs exitosas',
-            'Obtener un blueprint replicable para tu negocio',
-            'Ahorrar meses de prueba y error'
+        type: 'data-input',
+        category: 'DATOS BASE',
+        categoryColor: '#8b5cf6',
+        title: 'Reporte de Manus',
+        subtitle: 'El análisis de competencia ya está hecho',
+        icon: '📋',
+        description: 'Manus ya realizó el análisis del Local Pack en ciudades europeas. Pega aquí el reporte completo para que los siguientes prompts trabajen con esos datos.',
+        instructions: [
+            'Abre tu conversación con Manus donde hiciste el análisis de competencia',
+            'Copia el informe completo con todos los datos',
+            'Pégalo en el campo de abajo',
+            'Este reporte se usará en TODOS los prompts siguientes'
         ],
-        useCase: 'Ideal para iniciar cualquier proyecto de SEO local. Es el primer paso antes de crear o mejorar tu web.',
-        templateKey: 'ANALISIS_COMPETENCIA_LOCAL',
-        icon: '🔍',
         fields: [
             {
+                key: 'manusReport',
+                label: 'Reporte completo de Manus',
+                placeholder: 'Pega aquí todo el análisis de competencia que generó Manus...\n\nIncluye:\n- Webs analizadas por ciudad\n- Encabezados y estructura\n- Elementos de conversión\n- Patrones comunes identificados\n- Recomendaciones',
+                type: 'textarea',
+                required: true,
+                large: true
+            },
+            {
                 key: 'categoria',
-                label: 'Categoría / Sector',
-                placeholder: 'Ej: Cerrajeros, Fontaneros, Dentistas...',
+                label: 'Sector analizado',
+                placeholder: 'Ej: Cerrajeros',
                 type: 'text',
                 required: true
             }
         ],
-        outputHint: 'El resultado de este análisis es la BASE de todo. Lo usarás en todos los siguientes prompts.'
+        outputHint: 'Este reporte es la BASE de todo. Se usará automáticamente en todos los prompts siguientes.'
     },
     {
         id: 2,
@@ -54,8 +61,8 @@ export const WEBINAR_SLIDES = [
         category: 'INVESTIGACIÓN',
         categoryColor: '#6366f1',
         title: 'Auditoría SEO Técnica',
-        subtitle: 'Analiza la estructura técnica de los competidores',
-        objective: 'Extraer los detalles técnicos SEO de las webs competidoras para replicar lo que funciona.',
+        subtitle: 'Extrae los detalles técnicos de los competidores',
+        objective: 'A partir del reporte de Manus, profundizar en los aspectos técnicos SEO para replicar exactamente lo que funciona.',
         benefits: [
             'Ver qué schema markup usan los líderes',
             'Analizar estructura de URLs y arquitectura',
@@ -67,28 +74,14 @@ export const WEBINAR_SLIDES = [
         icon: '🔧',
         fields: [
             {
-                key: 'categoria',
-                label: 'Sector',
-                placeholder: 'Ej: Cerrajeros',
-                type: 'text',
-                required: true
-            },
-            {
                 key: 'ciudad',
-                label: 'Ciudad principal',
-                placeholder: 'Ej: Madrid',
+                label: 'Ciudad principal para tu negocio',
+                placeholder: 'Ej: Majadahonda',
                 type: 'text',
                 required: true
             }
         ],
-        aiEnhanceFields: [
-            {
-                key: 'competitorAnalysis',
-                label: 'Pega el resultado del Análisis de Competencia (Prompt 1)',
-                placeholder: 'Copia y pega el informe generado del análisis de competencia...',
-                type: 'textarea'
-            }
-        ]
+        usesManusReport: true
     },
     {
         id: 3,
@@ -97,7 +90,7 @@ export const WEBINAR_SLIDES = [
         categoryColor: '#10b981',
         title: 'Crear Location Page',
         subtitle: 'Página de localización optimizada desde cero',
-        objective: 'Crear una página de localización completa que combine las mejores prácticas SEO detectadas en el análisis de competencia.',
+        objective: 'Crear una página de localización completa aplicando todas las mejores prácticas identificadas en el reporte de Manus.',
         benefits: [
             'Estructura probada que funciona en el Local Pack',
             'Todos los elementos de conversión necesarios',
@@ -111,40 +104,40 @@ export const WEBINAR_SLIDES = [
             {
                 key: 'nombre',
                 label: 'Nombre del negocio',
-                placeholder: 'Ej: Cerrajeros Express Madrid',
-                type: 'text',
-                required: true
-            },
-            {
-                key: 'categoria',
-                label: 'Servicio principal',
-                placeholder: 'Ej: Cerrajería',
+                placeholder: 'Ej: Cerrajería Aguado',
                 type: 'text',
                 required: true
             },
             {
                 key: 'ciudad',
                 label: 'Ciudad',
-                placeholder: 'Ej: Madrid',
+                placeholder: 'Ej: Majadahonda',
                 type: 'text',
                 required: true
             },
             {
                 key: 'barriosZonas',
                 label: 'Barrios / Zonas de servicio',
-                placeholder: 'Ej: Centro, Chamberí, Salamanca, Retiro...',
+                placeholder: 'Ej: Las Rozas, Boadilla, Pozuelo...',
+                type: 'text',
+                required: false
+            },
+            {
+                key: 'telefono',
+                label: 'Teléfono principal',
+                placeholder: 'Ej: 614 040 443',
+                type: 'text',
+                required: false
+            },
+            {
+                key: 'email',
+                label: 'Email de contacto',
+                placeholder: 'Ej: info@cerrajeriamajadahonda.com',
                 type: 'text',
                 required: false
             }
         ],
-        aiEnhanceFields: [
-            {
-                key: 'competitorAnalysis',
-                label: 'Pega el Análisis de Competencia',
-                placeholder: 'El informe del Prompt 1 - esto es CLAVE para crear la estructura ganadora...',
-                type: 'textarea'
-            }
-        ]
+        usesManusReport: true
     },
     {
         id: 4,
@@ -153,7 +146,7 @@ export const WEBINAR_SLIDES = [
         categoryColor: '#10b981',
         title: 'Referencias de Diseño',
         subtitle: 'Define el estilo visual con webs de ejemplo',
-        objective: 'Comunicar a la IA el estilo de diseño que quieres basándote en webs que te gustan.',
+        objective: 'Comunicar a la IA el estilo de diseño que quieres, combinando referencias visuales con los patrones ganadores del reporte de Manus.',
         benefits: [
             'Definir paleta de colores y estilo',
             'Mostrar ejemplos de layouts que te gustan',
@@ -174,32 +167,19 @@ export const WEBINAR_SLIDES = [
             {
                 key: 'colorPreference',
                 label: 'Preferencia de colores',
-                placeholder: 'Ej: Azul profesional, Verde confianza, Naranja urgencia...',
+                placeholder: 'Ej: Rojo granate corporativo, Azul profesional...',
                 type: 'text',
                 required: false
             },
             {
                 key: 'styleNotes',
                 label: 'Notas sobre el estilo',
-                placeholder: 'Ej: Minimalista, Moderno, Con mucho espacio en blanco...',
+                placeholder: 'Ej: Minimalista, Moderno, Con hero grande y teléfono visible...',
                 type: 'text',
                 required: false
             }
         ],
-        aiEnhanceFields: [
-            {
-                key: 'competitorAnalysis',
-                label: 'Pega el Análisis de Competencia',
-                placeholder: 'Para combinar las mejores prácticas con tu estilo deseado...',
-                type: 'textarea'
-            },
-            {
-                key: 'designNotes',
-                label: 'Describe qué te gusta de las webs de referencia',
-                placeholder: 'Ej: "De ejemplo1.com me gusta el hero con teléfono grande. De ejemplo2.com el grid de servicios..."',
-                type: 'textarea'
-            }
-        ]
+        usesManusReport: true
     },
     {
         id: 5,
@@ -207,8 +187,8 @@ export const WEBINAR_SLIDES = [
         category: 'ESTRATEGIA',
         categoryColor: '#f59e0b',
         title: 'Estrategia SEO Completa',
-        subtitle: 'Plan de acción basado en datos reales',
-        objective: 'Diseñar una estrategia SEO local específica usando la estructura ganadora identificada en el análisis.',
+        subtitle: 'Plan de acción basado en los datos de Manus',
+        objective: 'Diseñar una estrategia SEO local específica usando los patrones ganadores identificados en el reporte de Manus.',
         benefits: [
             'Roadmap claro con prioridades definidas',
             'KPIs medibles y alcanzables',
@@ -222,26 +202,19 @@ export const WEBINAR_SLIDES = [
             {
                 key: 'nombre',
                 label: 'Nombre del negocio',
-                placeholder: 'Ej: Cerrajeros Express',
+                placeholder: 'Ej: Cerrajería Aguado',
                 type: 'text',
                 required: true
             },
             {
                 key: 'ciudad',
                 label: 'Ciudad principal',
-                placeholder: 'Ej: Madrid',
+                placeholder: 'Ej: Majadahonda',
                 type: 'text',
                 required: true
             }
         ],
-        aiEnhanceFields: [
-            {
-                key: 'competitorAnalysis',
-                label: 'Pega el Análisis de Competencia',
-                placeholder: 'La base de la estrategia...',
-                type: 'textarea'
-            }
-        ]
+        usesManusReport: true
     },
     {
         id: 6,
@@ -250,7 +223,7 @@ export const WEBINAR_SLIDES = [
         categoryColor: '#f59e0b',
         title: 'Keywords Locales',
         subtitle: 'Investigación de palabras clave con intención local',
-        objective: 'Identificar todas las oportunidades de keywords con intención local y transaccional para tu negocio.',
+        objective: 'Identificar todas las oportunidades de keywords locales basándose en lo que funcionó en el análisis de Manus.',
         benefits: [
             'Keywords long-tail de baja competencia',
             'Términos por barrio y zona',
@@ -262,35 +235,21 @@ export const WEBINAR_SLIDES = [
         icon: '🔑',
         fields: [
             {
-                key: 'categoria',
-                label: 'Sector / Industria',
-                placeholder: 'Ej: Cerrajería',
-                type: 'text',
-                required: true
-            },
-            {
                 key: 'ciudad',
                 label: 'Ciudad principal',
-                placeholder: 'Ej: Madrid',
+                placeholder: 'Ej: Majadahonda',
                 type: 'text',
                 required: true
             },
             {
                 key: 'barriosZonas',
                 label: 'Barrios / Zonas',
-                placeholder: 'Ej: Centro, Chamberí, Salamanca...',
+                placeholder: 'Ej: Las Rozas, Boadilla, Pozuelo...',
                 type: 'text',
                 required: false
             }
         ],
-        aiEnhanceFields: [
-            {
-                key: 'competitorAnalysis',
-                label: 'Pega el Análisis de Competencia',
-                placeholder: 'Ayuda a identificar keywords que usan los líderes...',
-                type: 'textarea'
-            }
-        ]
+        usesManusReport: true
     },
     {
         id: 7,
@@ -299,7 +258,7 @@ export const WEBINAR_SLIDES = [
         categoryColor: '#ec4899',
         title: 'Sistema de Componentes',
         subtitle: 'Librería reutilizable para location pages',
-        objective: 'Crear un sistema de componentes HTML/CSS reutilizables para generar location pages rápidamente.',
+        objective: 'Crear un sistema de componentes HTML/CSS reutilizables basados en los patrones ganadores del reporte de Manus.',
         benefits: [
             'Componentes plug-and-play',
             'Consistencia en todas las páginas',
@@ -310,13 +269,6 @@ export const WEBINAR_SLIDES = [
         templateKey: 'CREAR_SISTEMA_COMPONENTES',
         icon: '⚙️',
         fields: [],
-        aiEnhanceFields: [
-            {
-                key: 'competitorAnalysis',
-                label: 'Pega el Análisis de Competencia',
-                placeholder: 'Para crear componentes basados en patrones ganadores...',
-                type: 'textarea'
-            }
-        ]
+        usesManusReport: true
     }
 ];

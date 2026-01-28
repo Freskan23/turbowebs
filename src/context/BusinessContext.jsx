@@ -3,6 +3,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const BusinessContext = createContext();
 
 export const initialBusinessData = {
+    // Reporte de Manus (análisis de competencia)
+    manusReport: '',
+
     // Datos Básicos
     nombre: '',
     categoria: '',

@@ -1,379 +1,369 @@
-// PROMPTS MAESTROS OPTIMIZADOS - Extraídos del análisis de CSV de Manus
-// Estos prompts han sido probados y refinados en proyectos reales
+// PROMPTS MAESTROS OPTIMIZADOS para crear webs desde cero
+// Flujo: Manus hace el análisis → Usuario pega el reporte → Prompts trabajan con esos datos
 
 export const PROMPTS = {
-    // ===== INVESTIGACIÓN Y ANÁLISIS ===== //
+    // ===== 1. AUDITORÍA TÉCNICA (basada en reporte Manus) ===== //
 
-    ANALISIS_COMPETENCIA_LOCAL: `🔍 ANÁLISIS DE COMPETENCIA LOCAL - TOP LOCAL PACK
+    AUDITORIA_SEO_TECNICA: `🔧 AUDITORÍA SEO TÉCNICA - PROFUNDIZACIÓN
 
-OBJETIVO: Analizar el Local Pack (Top 3 positiones orgánicas) en 7 ciudades europeas principales para el sector {{categoria}}.
-
-**CIUDADES A ANALIZAR:**
-1. Madrid, España
-2. Barcelona, España  
-3. París, Francia
-4. Berlín, Alemania
-5. Milán, Italia
-6. Ámsterdam, Holanda
-7. Bruselas, Bélgica
-
-**BÚSQUEDAS LOCALES POR CIUDAD:**
-- "{{categoria}} [Ciudad]"
-- "{{categoria}} 24h [Ciudad]"  
-- "{{categoria}} urgencia [Ciudad]"
-
-**DATOS A EXTRAER POR WEB:**
-✅ Encabezados (H1, H2, H3) - Estructura jerárquica
-✅ Organización del menú - Secciones y subsecciones
-✅ Diseño visual - Colores, tipografía, espaciado
-✅ Estructura de contenido - Bloques y orden
-✅ CTAs y elementos de conversión - Ubicación y texto
-✅ Datos de contacto - NAP (Name, Address, Phone)
-✅ Schema markup - Tipos implementados
-✅ Internal linking - Estrategia de enlaces
-
-**FORMATO DE ENTREGA:**
-- Tabla comparativa en Excel/Google Sheets
-- Identificar **patrones comunes** en las 3 primeras de cada ciudad
-- Listar **diferencias destacadas**
-- Resumen de mejores prácticas detectadas`,
-
-    AUDITORIA_SEO_TECNICA: `🔧 AUDITORÍA SEO TÉCNICA COMPLETA
-
-**SITIO A ANALIZAR:** {{url}}
 **SECTOR:** {{categoria}}
-**UBICACIÓN:** {{ciudad}}
+**CIUDAD OBJETIVO:** {{ciudad}}
 
-**ALCANCE TÉCNICO:**
-{{seoScope}}
+**CONTEXTO - REPORTE DE MANUS:**
+{{manusReport}}
 
-**PROFUNDIDAD REQUERIDA:**
-{{analysisDepth}}
-
-**1. ON-PAGE SEO**
-- Title tag y meta description
-- Estructura de encabezados (H1-H6)
-- URLs y arquitectura de información
-- Optimización de imágenes (alt, formato, peso)
-- Schema Markup implementado
-- Datos estructurados (JSON-LD)
-
-**2. RENDIMIENTO**
-- Core Web Vitals (LCP, FID, CLS)
-- Velocidad de carga (móvil y desktop)
-- Impacto de scripts pesados
-- Optimización de recursos
-
-**3. INDEXABILIDAD**
-- Robots.txt
-- Sitemap.xml
-- Canonical tags
-- Directivas noindex/nofollow
-
-**4. MÓVIL**
-- Responsive design
-- Usabilidad táctil
-- Velocidad en dispositivos móviles
-
-**5. LOCAL SEO (si aplica)**
-- Google Business Profile
-- NAP consistency
-- Schema LocalBusiness
-- Reviews y ratings
-
-**ENTREGA:**
-- Informe en {{deliveryFormat}}
-- Priorización por impacto (Alta/Media/Baja)
-- Recomendaciones accionables`,
-
-    // ===== DESARROLLO WEB ===== //
-
-    CREAR_LOCATION_PAGE: `⚡ CREAR LOCATION PAGE OPTIMIZADA
-
-**NEGOCIO:** {{nombre}}
-**SERVICIO:** {{categoria}} 
-**UBICACIÓN:** {{ciudad}}
-**BARRIOS/ZONAS:** {{barriosZonas}}
+---
 
 **OBJETIVO:**
-Crear una página de localización completa que combine:
-- Todas las mejores prácticas SEO de webs exitosas del sector
-- Diseño profesional y moderno
-- Optimización para conversión local
+A partir del análisis de competencia realizado por Manus, extraer los detalles técnicos SEO específicos para crear nuestra web.
 
-**ESTRUCTURA REQUERIDA:**
+**PROFUNDIZAR EN:**
 
-📍 **Hero Section**
+**1. ESTRUCTURA HTML GANADORA**
+- Etiqueta title óptima (basada en patrones del reporte)
+- Meta description efectiva
+- Estructura H1, H2, H3 que funciona
+- URLs optimizadas
+
+**2. SCHEMA MARKUP RECOMENDADO**
+- LocalBusiness completo
+- Service schemas
+- FAQ schema
+- BreadcrumbList
+- Ejemplo JSON-LD listo para usar
+
+**3. ELEMENTOS DE CONVERSIÓN**
+- CTAs que mejor convierten (según el análisis)
+- Ubicación óptima del teléfono
+- Formularios: qué campos incluir
+- WhatsApp: implementación recomendada
+
+**4. ARQUITECTURA DE CONTENIDO**
+- Secciones obligatorias
+- Orden recomendado
+- Longitud de contenido por sección
+
+**ENTREGA:**
+- Checklist técnico para nuestra web
+- Código schema JSON-LD listo para copiar
+- Template de estructura HTML`,
+
+    // ===== 2. CREAR LOCATION PAGE ===== //
+
+    CREAR_LOCATION_PAGE: `⚡ CREAR LOCATION PAGE DESDE CERO
+
+**NEGOCIO:** {{nombre}}
+**SERVICIO:** {{categoria}}
+**UBICACIÓN:** {{ciudad}}
+**BARRIOS/ZONAS:** {{barriosZonas}}
+**TELÉFONO:** {{telefono}}
+**EMAIL:** {{email}}
+
+**CONTEXTO - REPORTE DE MANUS:**
+{{manusReport}}
+
+---
+
+**OBJETIVO:**
+Crear una página de localización NUEVA desde cero que replique exactamente la estructura ganadora identificada en el reporte de Manus.
+
+**ESTRUCTURA A CREAR (basada en patrones ganadores):**
+
+📍 **1. HERO SECTION**
 - H1: "{{categoria}} en {{ciudad}} - Servicio 24 Horas"
-- Subtítulo con propuesta de valor
-- 2-3 CTAs destacados (Llamar, WhatsApp, Formulario)
-- Imagen hero optimizada
+- Subtítulo con propuesta de valor única
+- Teléfono GRANDE y clicable: {{telefono}}
+- Botón WhatsApp
+- Botón "Solicitar Presupuesto"
 
-🛠️ **Servicios**
+🛠️ **2. SERVICIOS**
 - Grid de servicios principales (mínimo 6)
-- Iconos visuales
-- Breve descripción de cada uno
-- Links a páginas específicas de servicio
+- Icono + Título + Descripción breve
+- Cada servicio enlaza a su página
 
-✨ **Por qué elegirnos**
-- Mínimo 4 razones con íconos
-- Datos concretos (años experiencia, clientes, etc.)
+✨ **3. POR QUÉ ELEGIRNOS**
+- 4 razones con iconos
+- Datos concretos: años experiencia, trabajos realizados
 - Certificaciones o garantías
 
-🚨 **CTA de Urgencias**
-- Sección destacada visualmente
-- Teléfono grande y clicable
-- Tiempo de respuesta
-- Disponibilidad 24/7
+🚨 **4. CTA URGENCIAS**
+- Fondo de color destacado
+- "¿Urgencia? Llámanos AHORA"
+- Teléfono muy grande: {{telefono}}
+- "Llegamos en 30 minutos"
 
-📍 **Zonas de Servicio**
+📍 **5. ZONAS DE SERVICIO**
 - Listado de barrios: {{barriosZonas}}
-- Mapa visual (si posible)
-- Enlaces internal a otras location pages
+- Texto: "Damos servicio en toda {{ciudad}} y alrededores"
 
-💰 **Precios Transparentes**
-- Tabla de precios aproximados
+💰 **6. PRECIOS**
+- Tabla con precios orientativos
+- "Presupuesto sin compromiso"
 - "Sin cargos ocultos"
-- Formas de pago
 
-❓ **FAQ**
+❓ **7. FAQ**
 - Mínimo 8 preguntas frecuentes
-- Schema FAQ markup
 - Expandibles/acordeón
+- Preguntas tipo: precio, tiempo, garantía
 
-📞 **Contacto**
-- NAP completo y consistente
-- Formulario de contacto
-- Botón flotante WhatsApp
-- Horarios
+📞 **8. CONTACTO**
+- Formulario simple (Nombre, Teléfono, Mensaje)
+- NAP completo
+- Email: {{email}}
+- Horario de atención
+- Mapa de Google (opcional)
 
-⚖️ **Legal**
-- Links a Aviso Legal, Privacidad, Cookies
+⚖️ **9. FOOTER**
+- Links a páginas legales
+- Repetir teléfono: {{telefono}} y email: {{email}}
+- Redes sociales si hay
 
 **REQUISITOS TÉCNICOS:**
 - HTML5 semántico
-- Schema LocalBusiness completo
-- Responsive (mobile-first)
-- Core Web Vitals optimizados
-- Internal linking estratégico
+- Mobile-first responsive
+- Schema LocalBusiness JSON-LD
+- Velocidad optimizada
+- CTAs con colores que contrasten`,
 
-**DISEÑO:**
-- Colores corporativos mantenidos
-- Tipografía legible (mínimo 16px body)
-- Espaciado generoso  
-- CTAs contrastantes
-- Iconos modernos (Font Awesome o similar)`,
+    // ===== 3. REFERENCIAS DE DISEÑO ===== //
 
-    OPTIMIZAR_WEB_EXISTENTE: `🎨 OPTIMIZAR WEB EXISTENTE CON MEJORES PRÁCTICAS
+    OPTIMIZAR_WEB_EXISTENTE: `🎨 DEFINIR ESTILO VISUAL DE LA WEB
 
-**WEB ACTUAL:** {{url}}
-**ANÁLISIS BASE:** Usar hallazgos del análisis de competencia
+**REFERENCIAS DE DISEÑO:**
+{{referenceUrls}}
+
+**PREFERENCIA DE COLORES:**
+{{colorPreference}}
+
+**ESTILO DESEADO:**
+{{styleNotes}}
+
+**CONTEXTO - REPORTE DE MANUS:**
+{{manusReport}}
+
+---
 
 **OBJETIVO:**
-Aplicar todas las mejores prácticas identificadas del Local Pack sin perder:
-- NAP (Name, Address, Phone) actual
-- Diseño y colores corporativos
-- Contenido único de valor
+Definir el estilo visual completo para nuestra nueva web, combinando:
+1. Las referencias visuales proporcionadas
+2. Los patrones de diseño ganadores del reporte de Manus
+3. Las preferencias de colores y estilo indicadas
 
-**MEJORAS A APLICAR:**
+**DEFINIR:**
 
-1. **Estructura de Encabezados**
-   - Ajustar jerarquía H1-H6 según patrón ganador
-   - H1 único y keyword-rich
+**1. PALETA DE COLORES**
+- Color principal (CTAs, destacados)
+- Color secundario
+- Color de fondo
+- Color de texto
+- Colores de acento
 
-2. **Menú de Navegación**  
-   - Reorganizar según estructura común exitosa
-   - Máximo 7 items principales
-   - Menú mobile hamburguesa
+**2. TIPOGRAFÍA**
+- Fuente para títulos
+- Fuente para cuerpo
+- Tamaños recomendados
+- Pesos (bold, regular, light)
 
-3. **Contenido**
-   - Expansión de secciones clave
-   - Añadir bloques faltosos: FAQ, Testimonios, etc.
-   - Optimización de CTAs
+**3. ESPACIADO**
+- Padding de secciones
+- Márgenes entre elementos
+- Anchura máxima del contenido
 
-4. **Schema Markup**
-   - Implementar todos los schemas del análisis
-   - LocalBusiness, Service, FAQ, Review
+**4. COMPONENTES VISUALES**
+- Estilo de botones (redondeados, cuadrados)
+- Estilo de tarjetas
+- Iconografía (línea, sólido, etc.)
+- Sombras y efectos
 
-5. **Internal Linking**
-   - Estrategia de enlaces internos
-   - Anchor texts optimizados
+**5. LAYOUT**
+- Estructura del header
+- Organización de secciones
+- Estilo del footer
 
-6. **Páginas de Servicio**
-   - Crear página individual por cada servicio
-   - Estructura uniforme
-   - Optimización keyword long-tail
+**ENTREGA:**
+- Guía de estilo completa
+- Variables CSS definidas
+- Ejemplos de componentes estilizados`,
 
-7. **Legal y RGPD**
-   - Aviso Legal
-   - Política de Privacidad
-   - Política de Cookies
-   - Banner de cookies funcional
+    // ===== 4. ESTRATEGIA SEO ===== //
 
-**NO CAMBIAR:**
-- NAP existente
-- Paleta de colores corporativa
-- Logo ymarca
-
-**ENTREGABLE:**
-Código HTML/CSS/JS completo y funcional`,
-
-    // ===== ESTRATEGIA SEO ===== //
-
-    ESTRATEGIA_BASADA_AUDITORIA: `📊 ESTRATEGIA SEO BASADA EN AUDITORÍA
-
-**CONTEXTO:**
-Basándome en la auditoría técnica SEO completa (Alcance: {{seoScope}})
+    ESTRATEGIA_BASADA_AUDITORIA: `📊 ESTRATEGIA SEO COMPLETA
 
 **NEGOCIO:** {{nombre}}
-**UBICACIÓN:** {{ciudad}}  
-**COMPETENCIA ANALIZADA:** Webs del Local Pack en 7 ciudades europeas
+**UBICACIÓN:** {{ciudad}}
+
+**CONTEXTO - REPORTE DE MANUS:**
+{{manusReport}}
+
+---
 
 **OBJETIVO:**
-Diseñar una estrategia SEO local específica que use EXACTAMENTE la estructura ganadora identificada en el análisis de competencia.
+Diseñar la estrategia SEO completa para nuestra nueva web, basándonos en los patrones ganadores identificados en el reporte de Manus.
 
-**COMPONENTES ESTRATÉGICOS:**
+**1. ARQUITECTURA WEB**
+- Páginas a crear (basado en competencia analizada)
+- Estructura de menú
+- Jerarquía de contenidos
+- URLs optimizadas
 
-1. **Arquitectura Web**
-   - Replicar estructura de menú exitosa
-   - Definir páginas prioritarias
-   - Jerarquía interna y silos de contenido
+**2. CONTENIDO PRIORITARIO**
+- Página principal (Location Page)
+- Páginas de servicios individuales
+- Página "Sobre Nosotros"
+- Páginas de zonas/barrios
 
-2. **Optimización On-Page**
-   - Templates de meta tags por tipo de página
-   - Estructura de encabezados estándar
-   - Densidad keyword objetivo
+**3. SEO ON-PAGE**
+- Template de titles por tipo de página
+- Template de meta descriptions
+- Estructura H1-H6 estándar
+- Densidad de keywords
 
-3. **Contenido**
-   - Plan de contenidos mensual
-   - Long-tail keywords por servicio
-   - FAQs optimizadas para featured snippets
+**4. SEO LOCAL**
+- Configuración Google Business Profile
+- Estrategia NAP consistency
+- Directorios locales prioritarios
+- Plan de reseñas
 
-4. **Local SEO**
-   - Optimización Google Business Profile
-   - Estrategia de reseñas
-   - Citaciones en directorios
-   - Schema LocalBusiness refinado
+**5. CONTENIDO MENSUAL**
+- Blog posts recomendados
+- FAQs a añadir
+- Actualizaciones de servicios
 
-5. **Link Building**
-   - Identificar fuentes de backlinks competencia
-   - Estrategia de directorios locales
-   - Partnerships locales
+**6. LINK BUILDING**
+- Directorios del sector
+- Colaboraciones locales
+- Estrategia de menciones
 
-6. **Technical SEO**
-   - Roadmap de mejoras técnicas priorizadas
-   - Core Web Vitals targets
-   - Mobile-first optimizations
+**ENTREGA:**
+- Plan de acción por semanas
+- Checklist de implementación
+- KPIs a medir`,
 
-**PROFUNDIDAD:** {{analysisDepth}}
-**FORMATO ENTREGA:** {{deliveryFormat}}
-
-**ENTREGABLE:**
-Documento estratégico actionable con timeline y KPIs`,
+    // ===== 5. KEYWORDS ===== //
 
     KEYWORDS_LOCALES: `🔑 INVESTIGACIÓN DE KEYWORDS LOCALES
 
-**INDUSTRIA:** {{categoria}}
-**UBICACIÓN PRIMARY:** {{ciudad}}
+**SECTOR:** {{categoria}}
+**CIUDAD:** {{ciudad}}
 **ZONAS/BARRIOS:** {{barriosZonas}}
 
+**CONTEXTO - REPORTE DE MANUS:**
+{{manusReport}}
+
+---
+
 **OBJETIVO:**
-Identificar oportunidades de keywords con intención local y transaccional
+Identificar TODAS las keywords que debemos atacar en nuestra nueva web, basándonos en lo que funciona para los competidores analizados.
 
-**TIPOS DE KEYWORDS A INVESTIGAR:**
+**TIPOS DE KEYWORDS:**
 
-1. **Head Terms Locales**
-   - {{categoria}} {{ciudad}}
-   - {{categoria}} {{ciudad}} 24h
-   - {{categoria}} urgente {{ciudad}}
+**1. KEYWORDS PRINCIPALES**
+- {{categoria}} {{ciudad}}
+- {{categoria}} {{ciudad}} 24 horas
+- {{categoria}} urgente {{ciudad}}
+- {{categoria}} económico {{ciudad}}
 
-2. **Long-Tail por Servicio**
-   - [servicio específico] {{ciudad}}
-   - [servicio específico] urgente {{ciudad}}
-   - precio [servicio específico] {{
+**2. KEYWORDS POR SERVICIO**
+(Basadas en los servicios identificados en el reporte)
+- [cada servicio] {{ciudad}}
+- [cada servicio] precio {{ciudad}}
+- [cada servicio] urgente {{ciudad}}
 
-ciudad}}
+**3. KEYWORDS POR ZONA**
+- {{categoria}} [barrio]
+- {{categoria}} cerca de [zona]
+- {{categoria}} [código postal]
 
-3. **Micro-Local (por barrio)**
-   - {{categoria}} [barrio]
-   - [servicio] [barrio] {{ciudad}}
+**4. KEYWORDS LONG-TAIL**
+- cuánto cuesta {{categoria}} en {{ciudad}}
+- {{categoria}} 24 horas {{ciudad}} precio
+- mejor {{categoria}} de {{ciudad}}
+- {{categoria}} de confianza {{ciudad}}
 
-4. **Intención Transaccional**
-   - contratar {{categoria}} {{ciudad}}
-   - llamar {{categoria}} {{ciudad}}
-   - empresa {{categoria}} {{ciudad}}
+**5. KEYWORDS INFORMACIONALES (para blog)**
+- cómo elegir un {{categoria}}
+- qué hacer si necesitas {{categoria}}
+- precio medio de {{categoria}} en {{ciudad}}
 
-5. **Preguntas (Featured Snippets)**
-   - cuánto cuesta {{categoria}} en {{ciudad}}
-   - mejor {{categoria}} {{ciudad}}
-   - {{categoria}} cerca de mí
-
-**MÉTRICAS SOLICITAR:**
-- Volumen de búsqueda
-- Dificultad (KD)
-- CPC
-- Intención (informacional/transaccional)
-- SERP features
+**PARA CADA KEYWORD INDICAR:**
+- Volumen de búsqueda estimado
+- Dificultad (alta/media/baja)
+- Intención (transaccional/informacional)
+- Página donde atacarla
 
 **ENTREGA:**
-Excel con keywords categorizadas y priorizadas`,
+- Lista completa de keywords
+- Agrupación por página/sección
+- Priorización por oportunidad`,
 
-    // ===== PROMPTS AVANZADOS ===== //
+    // ===== 6. COMPONENTES ===== //
 
-    CREAR_SISTEMA_COMPONENTES: `⚙️ CREAR SISTEMA DE COMPONENTES WEB REUTILIZABLES
+    CREAR_SISTEMA_COMPONENTES: `⚙️ SISTEMA DE COMPONENTES REUTILIZABLES
+
+**CONTEXTO - REPORTE DE MANUS:**
+{{manusReport}}
+
+---
 
 **OBJETIVO:**
-Desarrollar un sistema de componentes HTML/CSS reutilizables para location pages
+Crear componentes HTML/CSS modulares basados en los patrones ganadores del reporte de Manus.
 
 **COMPONENTES A CREAR:**
 
-1. **Hero Section**
-   - Variantes: con/sin imagen, con/sin formulario
-   - Props: título, subtítulo, CTAs, imagen
+**1. HERO SECTION**
+- Con imagen de fondo
+- Con teléfono destacado
+- Con formulario inline
+- Responsive mobile
 
-2. **Service Grid**
-   - Layout: 2, 3, 4 o 6 columnas
-   - Props: servicios[], iconos[], enlaces[]
+**2. GRID DE SERVICIOS**
+- 2, 3 o 4 columnas
+- Icono + título + descripción
+- Hover effects
+- Links a páginas
 
-3. **Why Choose Us**
-   - Props: razones[], iconos[]
-   - Layout: horizontal o vertical
+**3. SECCIÓN "POR QUÉ NOSOTROS"**
+- 4 items con iconos
+- Layout horizontal en desktop
+- Vertical en mobile
 
-4. **Emergency CTA**
-   - Props: teléfono, texto urgencia, horario
+**4. CTA DE URGENCIAS**
+- Fondo de color
+- Teléfono grande
+- Texto persuasivo
+- Animación sutil
 
-5. **Service Areas**
-   - Props: barrios[], mapa (opcional)
-   - Estilo: lista, grid, o mapa interactivo
+**5. FAQ ACORDEÓN**
+- Expandible/colapsable
+- Schema FAQ incluido
+- Iconos +/-
 
-6. **Pricing Table**
-   - Props: servicios[], precios[], descripción[]
-   - Disclaimer: "Precios orientativos"
+**6. FORMULARIO DE CONTACTO**
+- Campos: nombre, teléfono, mensaje
+- Validación básica
+- Estilo consistente
 
-7. **FAQ Accordion**
-   - Props: preguntas[], respuestas[]
-   - Schema FAQ automático
+**7. FOOTER COMPLETO**
+- Logo y descripción
+- Links rápidos
+- Contacto
+- Legal
 
-8. **Contact Section**
-   - Props: NAP, formulario, mapa
-   - Integración con formularios
+**8. BOTÓN WHATSAPP FLOTANTE**
+- Fijo en esquina
+- Animación de entrada
+- Link con mensaje predefinido
 
-9. **Footer Completo**
-   - Props: links[], legal[], social[], NAP
+**REQUISITOS:**
+- HTML5 semántico
+- CSS con variables (colores, fuentes)
+- Mobile-first
+- Comentarios explicativos
+- Fácil de customizar
 
-10. **Floating WhatsApp Button**
-    - Props: número, mensaje predeterminado
-
-**REQUISITOS TÉCNICOS:**
-- Vanilla HTML/CSS/JS (sin frameworks)
-- BEM methodology para clases CSS
-- Variables CSS para theming
-- Responsive por defecto
-- Accesibilidad WCAG AA
-
-**ENTREGABLE:**
-- Librería de componentes documentada
-- Ejemplos de uso
-- CSS variables file para customización`,
+**ENTREGA:**
+- Código HTML de cada componente
+- CSS con variables configurables
+- Instrucciones de uso`,
 
 };
