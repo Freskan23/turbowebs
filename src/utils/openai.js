@@ -1,11 +1,37 @@
 // Configuración de OpenAI
-// La API key debe configurarse en Vercel como variable de entorno: VITE_OPENAI_API_KEY
-export const OPENAI_CONFIG = {
-    apiKey: import.meta.env.VITE_OPENAI_API_KEY || '',
-    model: 'gpt-4o-mini', // Modelo económico y rápido
-    temperature: 0.7,
-    maxTokens: 2000
-};
+// La API key se obtiene de localStorage (configurada por el usuario en la app)
+
+export function getOpenAIConfig() {
+    const apiKey = localStorage.getItem('openai_api_key') || '';
+    return {
+        apiKey,
+        model: 'gpt-4o-mini',
+        temperature: 0.7,
+        maxTokens: 2000
+    };
+}
+
+/**
+ * Guarda la API key en localStorage
+ */
+export function saveAPIKey(apiKey) {
+    localStorage.setItem('openai_api_key', apiKey);
+}
+
+/**
+ * Obtiene la API key guardada
+ */
+export function getAPIKey() {
+    return localStorage.getItem('openai_api_key') || '';
+}
+
+/**
+ * Verifica si hay una API key configurada
+ */
+export function hasAPIKey() {
+    const key = localStorage.getItem('openai_api_key');
+    return key && key.trim().length > 0;
+}
 
 /**
  * Mejora un prompt usando OpenAI
@@ -14,8 +40,10 @@ export const OPENAI_CONFIG = {
  * @returns {Promise<string>} - Prompt mejorado
  */
 export async function improvePromptWithAI(basePrompt, additionalData = {}) {
-    if (!OPENAI_CONFIG.apiKey) {
-        throw new Error('API key de OpenAI no configurada. Añade VITE_OPENAI_API_KEY en las variables de entorno.');
+    const config = getOpenAIConfig();
+
+    if (!config.apiKey) {
+        throw new Error('API key de OpenAI no configurada. Ve a Configuración para añadirla.');
     }
 
     try {
@@ -41,16 +69,16 @@ Mejora este prompt integrando los datos adicionales de forma natural. Devuelve S
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${OPENAI_CONFIG.apiKey}`
+                'Authorization': `Bearer ${config.apiKey}`
             },
             body: JSON.stringify({
-                model: OPENAI_CONFIG.model,
+                model: config.model,
                 messages: [
                     { role: 'system', content: systemPrompt },
                     { role: 'user', content: userPrompt }
                 ],
-                temperature: OPENAI_CONFIG.temperature,
-                max_tokens: OPENAI_CONFIG.maxTokens
+                temperature: config.temperature,
+                max_tokens: config.maxTokens
             })
         });
 

@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useBusiness } from './context/BusinessContext';
 import { WebinarRoadmap } from './components/WebinarRoadmap';
 import { BusinessWizard } from './components/BusinessWizard';
 import { DynamicPromptComposer } from './components/DynamicPromptComposer';
 import { Login } from './components/Login';
-import { Zap, Eye, Sparkles, Files, Layers, LogOut } from 'lucide-react';
+import { SettingsPanel } from './components/SettingsPanel';
+import { Zap, Eye, Sparkles, Files, Layers, LogOut, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const App = () => {
     const { currentModule, completion, demoMode, setDemoMode, setCurrentModule, user, setUser } = useBusiness();
+    const [showSettings, setShowSettings] = useState(false);
 
     // Persistencia de sesión (Whitelist)
     React.useEffect(() => {
@@ -18,7 +20,10 @@ const App = () => {
 
     if (!user) return <Login />;
 
+    // Settings panel se renderiza fuera del flujo principal
+
     return (
+        <>
         <div className="min-h-screen flex flex-col container">
             {/* Future Header */}
             <header className="py-8 flex justify-between items-center mb-4">
@@ -51,6 +56,14 @@ const App = () => {
                             />
                         </div>
                     </div>
+
+                    <button
+                        onClick={() => setShowSettings(true)}
+                        className="p-3 rounded-xl bento-card border-none hover:text-primary transition-colors"
+                        title="Configuración"
+                    >
+                        <Settings size={20} />
+                    </button>
 
                     <button
                         onClick={() => {
@@ -190,6 +203,9 @@ const App = () => {
                 </div>
             </footer>
         </div>
+
+            <SettingsPanel isOpen={showSettings} onClose={() => setShowSettings(false)} />
+        </>
     );
 };
 
