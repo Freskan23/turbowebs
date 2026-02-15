@@ -1,6 +1,6 @@
 // Lista de usuarios con suscripcion ACTIVA en YinYangSEO Academy
 // Generado automaticamente desde academy.csv el 3/2/2026
-// Total: 286 usuarios activos
+// Total: 287 usuarios activos
 
 export const WHITELIST = [
     "aaannndddrrreeesss@gmail.com",
@@ -175,6 +175,7 @@ export const WHITELIST = [
     "josemmsimo@gmail.com",
     "josepalao21@gmail.com",
     "josu.cristobal@gmail.com",
+    "josueperezexposito@gmail.com",
     "jpovnavarro@gmail.com",
     "jraposop@gmail.com",
     "jsp.almny@gmail.com",
