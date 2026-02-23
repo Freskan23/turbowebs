@@ -50,6 +50,7 @@ export const WHITELIST = [
     "carlostalavera_b@hotmail.com",
     "carlota@galvanicmarketing.es",
     "carmonarjuan@gmail.com",
+    "carvajalphotos@gmail.com",
     "cecijam@yahoo.es",
     "cerrajerocerca24h@gmail.com",
     "chrisris99@gmail.com",
